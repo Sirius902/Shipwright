@@ -510,7 +510,7 @@ void func_80B4BF2C(EnZl1* this, GlobalContext* globalCtx) {
             if ((Message_GetState(msgCtx) == TEXT_STATE_EVENT) && Message_ShouldAdvance(globalCtx)) {
                 this->actor.textId = 0xFFFF;
                 globalCtx->talkWithPlayer(globalCtx, &this->actor);
-                func_8002F434(&this->actor, globalCtx, GI_LETTER_ZELDA, 120.0f, 10.0f);
+                func_8002F434(&this->actor, globalCtx, GI_LETTER_ZELDA, 120.0f, 10.0f, RC_UNKNOWN_CHECK);
                 globalCtx->msgCtx.msgMode = MSGMODE_TEXT_CLOSING;
                 globalCtx->msgCtx.stateTimer = 4;
                 this->unk_1E2++;
@@ -525,7 +525,7 @@ void func_80B4BF2C(EnZl1* this, GlobalContext* globalCtx) {
                 this->actor.parent = NULL;
                 this->unk_1E2++;
             } else {
-                func_8002F434(&this->actor, globalCtx, GI_LETTER_ZELDA, 120.0f, 10.0f);
+                func_8002F434(&this->actor, globalCtx, GI_LETTER_ZELDA, 120.0f, 10.0f, RC_UNKNOWN_CHECK);
             }
             break;
         case 3:

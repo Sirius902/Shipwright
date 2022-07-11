@@ -548,11 +548,9 @@ void func_809FEC70(EnDu* this, GlobalContext* globalCtx) {
         EnDu_SetupAction(this, func_809FECE4);
     } else {
         f32 xzRange = this->actor.xzDistToPlayer + 1.0f;
-        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_GC_DARUNIAS_JOY, GI_BRACELET);
-        if (getItemId == GI_ARCHIPELAGO_ITEM) {
-            SetArchipelagoCurrentCheck(RC_GC_DARUNIAS_JOY);
-        }
-        func_8002F434(&this->actor, globalCtx, gSaveContext.n64ddFlag ? getItemId : GI_BRACELET, xzRange, fabsf(this->actor.yDistToPlayer) + 1.0f);
+        RandomizerCheck check = RC_GC_DARUNIAS_JOY;
+        func_8002F434(&this->actor, globalCtx, gSaveContext.n64ddFlag ?
+            GetRandomizedItemIdFromKnownCheck(check, GI_BRACELET) : GI_BRACELET, xzRange, fabsf(this->actor.yDistToPlayer) + 1.0f, check);
     }
 }
 

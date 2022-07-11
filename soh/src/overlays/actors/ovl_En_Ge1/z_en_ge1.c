@@ -521,6 +521,7 @@ void EnGe1_WaitTillItemGiven_Archery(EnGe1* this, GlobalContext* globalCtx) {
             gSaveContext.infTable[25] |= 1;
         }
     } else {
+        RandomizerCheck check = RC_UNKNOWN_CHECK;
         if (this->stateFlags & GE1_STATE_GIVE_QUIVER) {
             if (!gSaveContext.n64ddFlag) {
                 switch (CUR_UPG_VALUE(UPG_QUIVER)) {
@@ -533,23 +534,18 @@ void EnGe1_WaitTillItemGiven_Archery(EnGe1* this, GlobalContext* globalCtx) {
                         break;
                 }
             } else {
-                getItemId = GetRandomizedItemIdFromKnownCheck(
-                    RC_GF_HBA_1500_POINTS, CUR_UPG_VALUE(UPG_QUIVER) == 1 ? GI_QUIVER_40 : GI_QUIVER_50);
-                if (getItemId == GI_ARCHIPELAGO_ITEM) {
-                    SetArchipelagoCurrentCheck(RC_GF_HBA_1500_POINTS);
-                }
+                check = RC_GF_HBA_1500_POINTS;
+                getItemId = GetRandomizedItemIdFromKnownCheck(check, CUR_UPG_VALUE(UPG_QUIVER) == 1 ? GI_QUIVER_40 : GI_QUIVER_50);
             }
         } else {
             if (!gSaveContext.n64ddFlag) {
                 getItemId = GI_HEART_PIECE;
             } else {
-                getItemId = GetRandomizedItemIdFromKnownCheck(RC_GF_HBA_1000_POINTS, GI_HEART_PIECE);
-                if (getItemId == GI_ARCHIPELAGO_ITEM) {
-                    SetArchipelagoCurrentCheck(RC_GF_HBA_1000_POINTS);
-                }
+                check = RC_GF_HBA_1000_POINTS;
+                getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_HEART_PIECE);
             }
         }
-        func_8002F434(&this->actor, globalCtx, getItemId, 10000.0f, 50.0f);
+        func_8002F434(&this->actor, globalCtx, getItemId, 10000.0f, 50.0f, check);
     }
 }
 
@@ -561,6 +557,7 @@ void EnGe1_BeginGiveItem_Archery(EnGe1* this, GlobalContext* globalCtx) {
         this->actionFunc = EnGe1_WaitTillItemGiven_Archery;
     }
 
+    RandomizerCheck check = RC_UNKNOWN_CHECK;
     if (this->stateFlags & GE1_STATE_GIVE_QUIVER) {
         if (!gSaveContext.n64ddFlag) {
             switch (CUR_UPG_VALUE(UPG_QUIVER)) {
@@ -573,18 +570,19 @@ void EnGe1_BeginGiveItem_Archery(EnGe1* this, GlobalContext* globalCtx) {
                     break;
             }
         } else {
-            getItemId = GetRandomizedItemIdFromKnownCheck(RC_GF_HBA_1500_POINTS,
-                                                          CUR_UPG_VALUE(UPG_QUIVER) == 1 ? GI_QUIVER_40 : GI_QUIVER_50);
+            check = RC_GF_HBA_1500_POINTS;
+            getItemId = GetRandomizedItemIdFromKnownCheck(check, CUR_UPG_VALUE(UPG_QUIVER) == 1 ? GI_QUIVER_40 : GI_QUIVER_50);
         }
     } else {
         if (!gSaveContext.n64ddFlag) {
             getItemId = GI_HEART_PIECE;
         } else {
-            getItemId = GetRandomizedItemIdFromKnownCheck(RC_GF_HBA_1000_POINTS, GI_HEART_PIECE);
+            check = RC_GF_HBA_1000_POINTS;
+            getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_HEART_PIECE);
         }
     }
 
-    func_8002F434(&this->actor, globalCtx, getItemId, 10000.0f, 50.0f);
+    func_8002F434(&this->actor, globalCtx, getItemId, 10000.0f, 50.0f, check);
 }
 
 void EnGe1_TalkWinPrize_Archery(EnGe1* this, GlobalContext* globalCtx) {

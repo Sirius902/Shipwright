@@ -290,6 +290,7 @@ typedef struct EnItem00 {
     /* 0x15C */ f32 scale;
     /* 0x160 */ ColliderCylinder collider;
     s16 ogParams;
+    RandomizerCheck check;
 } EnItem00; // size = 0x1AC
 
 // Only A_OBJ_SIGNPOST_OBLONG and A_OBJ_SIGNPOST_ARROW are used in room files.

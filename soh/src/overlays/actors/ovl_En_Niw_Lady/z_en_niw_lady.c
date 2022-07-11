@@ -70,6 +70,8 @@ void EnNiwLady_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
     EnNiwLady* this = (EnNiwLady*)thisx;
 
+    this->check = RC_UNKNOWN_CHECK;
+
     this->objectAneIndex = Object_GetIndex(&globalCtx->objectCtx, OBJECT_ANE);
     this->objectOsAnimeIndex = Object_GetIndex(&globalCtx->objectCtx, OBJECT_OS_ANIME);
     if ((this->objectOsAnimeIndex < 0) || (this->objectAneIndex < 0)) {
@@ -304,15 +306,13 @@ void func_80ABA654(EnNiwLady* this, GlobalContext* globalCtx) {
         if (!(gSaveContext.itemGetInf[0] & 0x1000)) {
             this->actor.parent = NULL;
 
+            this->check = RC_KAK_ANJU_AS_CHILD;
             if (gSaveContext.n64ddFlag) {
-                s32 itemId = GetRandomizedItemIdFromKnownCheck(RC_KAK_ANJU_AS_CHILD, GI_BOTTLE);
-                if (itemId == GI_ARCHIPELAGO_ITEM) {
-                    SetArchipelagoCurrentCheck(RC_KAK_ANJU_AS_CHILD);
-                }
-                func_8002F434(&this->actor, globalCtx, itemId, 100.0f, 50.0f);
+                s32 itemId = GetRandomizedItemIdFromKnownCheck(this->check, GI_BOTTLE);
+                func_8002F434(&this->actor, globalCtx, itemId, 100.0f, 50.0f, this->check);
             } else {
                 this->getItemId = GI_BOTTLE;
-                func_8002F434(&this->actor, globalCtx, GI_BOTTLE, 100.0f, 50.0f);
+                func_8002F434(&this->actor, globalCtx, GI_BOTTLE, 100.0f, 50.0f, this->check);
             }
 
             this->actionFunc = func_80ABAC00;
@@ -320,7 +320,7 @@ void func_80ABA654(EnNiwLady* this, GlobalContext* globalCtx) {
         }
         if (this->unk_26C == 1) {
             this->getItemId = GI_RUPEE_PURPLE;
-            func_8002F434(&this->actor, globalCtx, GI_RUPEE_PURPLE, 100.0f, 50.0f);
+            func_8002F434(&this->actor, globalCtx, GI_RUPEE_PURPLE, 100.0f, 50.0f, RC_UNKNOWN_CHECK);
             this->actionFunc = func_80ABAC00;
         }
         this->actionFunc = func_80ABA244;
@@ -393,22 +393,21 @@ void func_80ABA878(EnNiwLady* this, GlobalContext* globalCtx) {
 void func_80ABA9B8(EnNiwLady* this, GlobalContext* globalCtx) {
     if ((this->unk_262 == Message_GetState(&globalCtx->msgCtx)) && Message_ShouldAdvance(globalCtx)) {
         switch (globalCtx->msgCtx.choiceIndex) {
-            case 0:
+            case 0: {
                 Message_CloseTextbox(globalCtx);
                 this->actor.parent = NULL;
 
+                this->check = RC_KAK_ANJU_AS_ADULT;
                 if (gSaveContext.n64ddFlag) {
-                    s32 itemId = GetRandomizedItemIdFromKnownCheck(RC_KAK_ANJU_AS_ADULT, GI_POCKET_EGG);
-                    if (itemId == GI_ARCHIPELAGO_ITEM) {
-                        SetArchipelagoCurrentCheck(RC_KAK_ANJU_AS_ADULT);
-                    }
-                    func_8002F434(&this->actor, globalCtx, itemId, 200.0f, 100.0f);
+                    s32 itemId = GetRandomizedItemIdFromKnownCheck(this->check, GI_POCKET_EGG);
+                    func_8002F434(&this->actor, globalCtx, itemId, 200.0f, 100.0f, this->check);
                 } else {
-                    func_8002F434(&this->actor, globalCtx, GI_POCKET_EGG, 200.0f, 100.0f);
+                    func_8002F434(&this->actor, globalCtx, GI_POCKET_EGG, 200.0f, 100.0f, this->check);
                 }
 
                 this->actionFunc = func_80ABAC00;
                 break;
+            }
             case 1:
                 this->actor.textId = sTradeItemTextIds[3];
                 this->unk_26E = this->unk_27A + 21;
@@ -434,7 +433,7 @@ void func_80ABAB08(EnNiwLady* this, GlobalContext* globalCtx) {
             case 0:
                 Message_CloseTextbox(globalCtx);
                 this->actor.parent = NULL;
-                func_8002F434(&this->actor, globalCtx, GI_COJIRO, 200.0f, 100.0f);
+                func_8002F434(&this->actor, globalCtx, GI_COJIRO, 200.0f, 100.0f, RC_UNKNOWN_CHECK);
                 this->actionFunc = func_80ABAC00;
                 break;
             case 1:
@@ -457,15 +456,16 @@ void func_80ABAC00(EnNiwLady* this, GlobalContext* globalCtx) {
         this->actionFunc = func_80ABAC84;
     } else {
         getItemId = this->getItemId;
+        this->check = RC_UNKNOWN_CHECK;
         if (LINK_IS_ADULT) {
             getItemId = !(gSaveContext.itemGetInf[2] & 0x1000) ? GI_POCKET_EGG : GI_COJIRO;
 
             if (gSaveContext.n64ddFlag && getItemId == GI_POCKET_EGG) {
-                // ARCHIPELAGO_TODO: Not sure if I need something here
-                getItemId = GetRandomizedItemIdFromKnownCheck(RC_KAK_ANJU_AS_ADULT, GI_POCKET_EGG);
+                this->check = RC_KAK_ANJU_AS_ADULT;
+                getItemId = GetRandomizedItemIdFromKnownCheck(this->check, GI_POCKET_EGG);
             }
         }
-        func_8002F434(&this->actor, globalCtx, getItemId, 200.0f, 100.0f);
+        func_8002F434(&this->actor, globalCtx, getItemId, 200.0f, 100.0f, this->check);
     }
 }
 

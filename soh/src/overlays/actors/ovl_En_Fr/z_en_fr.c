@@ -211,6 +211,8 @@ void EnFr_OrientUnderwater(EnFr* this) {
 void EnFr_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnFr* this = (EnFr*)thisx;
 
+    this->check = RC_UNKNOWN_CHECK;
+
     if (this->actor.params == 0) {
         this->actor.destroy = NULL;
         this->actor.draw = NULL;
@@ -937,11 +939,11 @@ void EnFr_SetReward(EnFr* this, GlobalContext* globalCtx) {
     } else if (songIndex == FROG_STORMS) {
         if (!(gSaveContext.eventChkInf[13] & sSongIndex[songIndex])) {
             gSaveContext.eventChkInf[13] |= sSongIndex[songIndex];
+            this->check = RC_ZR_FROGS_IN_THE_RAIN;
             if (!gSaveContext.n64ddFlag) {
                 this->reward = GI_HEART_PIECE;
             } else {
-                // ARCHIPELAGO_TODO: Save check for gifting in archipelago later
-                this->reward = GetRandomizedItemIdFromKnownCheck(RC_ZR_FROGS_IN_THE_RAIN, GI_HEART_PIECE);
+                this->reward = GetRandomizedItemIdFromKnownCheck(this->check, GI_HEART_PIECE);
             }
         } else {
             this->reward = GI_RUPEE_BLUE;
@@ -949,11 +951,11 @@ void EnFr_SetReward(EnFr* this, GlobalContext* globalCtx) {
     } else if (songIndex == FROG_CHOIR_SONG) {
         if (!(gSaveContext.eventChkInf[13] & sSongIndex[songIndex])) {
             gSaveContext.eventChkInf[13] |= sSongIndex[songIndex];
+            this->check = RC_ZR_FROGS_OCARINA_GAME;
             if (!gSaveContext.n64ddFlag) {
                 this->reward = GI_HEART_PIECE;
             } else {
-                // ARCHIPELAGO_TODO: Save check for gifting in archipelago later
-                this->reward = GetRandomizedItemIdFromKnownCheck(RC_ZR_FROGS_OCARINA_GAME, GI_HEART_PIECE);
+                this->reward = GetRandomizedItemIdFromKnownCheck(this->check, GI_HEART_PIECE);
             }
         } else {
             this->reward = GI_RUPEE_PURPLE;
@@ -1004,7 +1006,7 @@ void EnFr_Deactivate(EnFr* this, GlobalContext* globalCtx) {
         this->actionFunc = EnFr_Idle;
     } else {
         this->actionFunc = EnFr_GiveReward;
-        func_8002F434(&this->actor, globalCtx, this->reward, 30.0f, 100.0f);
+        func_8002F434(&this->actor, globalCtx, this->reward, 30.0f, 100.0f, this->check);
     }
 }
 
@@ -1013,7 +1015,7 @@ void EnFr_GiveReward(EnFr* this, GlobalContext* globalCtx) {
         this->actor.parent = NULL;
         this->actionFunc = EnFr_SetIdle;
     } else {
-        func_8002F434(&this->actor, globalCtx, this->reward, 30.0f, 100.0f);
+        func_8002F434(&this->actor, globalCtx, this->reward, 30.0f, 100.0f, this->check);
     }
 }
 

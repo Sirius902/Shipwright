@@ -91,7 +91,7 @@ void EnDs_GiveOddPotion(EnDs* this, GlobalContext* globalCtx) {
         this->actionFunc = EnDs_DisplayOddPotionText;
         gSaveContext.timer2State = 0;
     } else {
-        func_8002F434(&this->actor, globalCtx, GI_ODD_POTION, 10000.0f, 50.0f);
+        func_8002F434(&this->actor, globalCtx, GI_ODD_POTION, 10000.0f, 50.0f, RC_UNKNOWN_CHECK);
     }
 }
 
@@ -99,7 +99,7 @@ void EnDs_TalkAfterBrewOddPotion(EnDs* this, GlobalContext* globalCtx) {
     if ((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_EVENT) && Message_ShouldAdvance(globalCtx)) {
         Message_CloseTextbox(globalCtx);
         this->actionFunc = EnDs_GiveOddPotion;
-        func_8002F434(&this->actor, globalCtx, GI_ODD_POTION, 10000.0f, 50.0f);
+        func_8002F434(&this->actor, globalCtx, GI_ODD_POTION, 10000.0f, 50.0f, RC_UNKNOWN_CHECK);
     }
 }
 
@@ -171,7 +171,7 @@ void EnDs_GiveBluePotion(EnDs* this, GlobalContext* globalCtx) {
         this->actor.parent = NULL;
         this->actionFunc = EnDs_Talk;
     } else {
-        func_8002F434(&this->actor, globalCtx, GI_POTION_BLUE, 10000.0f, 50.0f);
+        func_8002F434(&this->actor, globalCtx, GI_POTION_BLUE, 10000.0f, 50.0f, RC_UNKNOWN_CHECK);
     }
 }
 
@@ -190,7 +190,7 @@ void EnDs_OfferBluePotion(EnDs* this, GlobalContext* globalCtx) {
                     case 2: // have 100 rupees and empty bottle
                         Rupees_ChangeBy(-100);
                         this->actor.flags &= ~ACTOR_FLAG_16;
-                        func_8002F434(&this->actor, globalCtx, GI_POTION_BLUE, 10000.0f, 50.0f);
+                        func_8002F434(&this->actor, globalCtx, GI_POTION_BLUE, 10000.0f, 50.0f, RC_UNKNOWN_CHECK);
                         this->actionFunc = EnDs_GiveBluePotion;
                         return;
                 }

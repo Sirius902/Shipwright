@@ -129,7 +129,7 @@ void EnMs_Talk(EnMs* this, GlobalContext* globalCtx) {
                     Message_ContinueTextbox(globalCtx, 0x4069); // not enough rupees text
                     return;
                 }
-                func_8002F434(&this->actor, globalCtx, GI_BEAN, 90.0f, 10.0f);
+                func_8002F434(&this->actor, globalCtx, GI_BEAN, 90.0f, 10.0f, RC_UNKNOWN_CHECK);
                 this->actionFunc = EnMs_Sell;
                 return;
             case 1: // no
@@ -146,7 +146,7 @@ void EnMs_Sell(EnMs* this, GlobalContext* globalCtx) {
         this->actor.parent = NULL;
         this->actionFunc = EnMs_TalkAfterPurchase;
     } else {
-        func_8002F434(&this->actor, globalCtx, GI_BEAN, 90.0f, 10.0f);
+        func_8002F434(&this->actor, globalCtx, GI_BEAN, 90.0f, 10.0f, RC_UNKNOWN_CHECK);
     }
 }
 

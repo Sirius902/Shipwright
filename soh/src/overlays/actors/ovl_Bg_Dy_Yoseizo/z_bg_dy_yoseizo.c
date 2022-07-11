@@ -76,10 +76,8 @@ void GivePlayerRandoRewardGreatFairy(BgDyYoseizo* this, GlobalContext* globalCtx
         Flags_SetTreasure(globalCtx, this->fountainType + 1);
         Actor_Kill(&this->actor);
     } else if (!Flags_GetTreasure(globalCtx, this->fountainType + 1)) {
-        if (getItemId == GI_ARCHIPELAGO_ITEM) {
-            SetArchipelagoCurrentCheck(GetCheckFromActor(globalCtx->sceneNum, this->actor.id, this->fountainType + 1));
-        }
-        func_8002F434(&this->actor, globalCtx, getItemId, 10000.0f, 100.0f);
+        RandomizerCheck check = GetCheckFromActor(globalCtx->sceneNum, this->actor.id, this->fountainType + 1);
+        func_8002F434(&this->actor, globalCtx, getItemId, 10000.0f, 100.0f, check);
     }
 }
 

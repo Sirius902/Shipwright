@@ -468,10 +468,8 @@ void GivePlayerRandoReward(DoorWarp1* this, Player* player, GlobalContext* globa
         !Flags_GetTreasure(globalCtx, 0x1F)) {
         Flags_SetTreasure(globalCtx, 0x1F);
     } else if (!Flags_GetTreasure(globalCtx, 0x1F)) {
-        if (getItemId == GI_ARCHIPELAGO_ITEM) {
-            SetArchipelagoCurrentCheck(GetCheckFromActor(globalCtx->sceneNum, this->actor.id, this->actor.params));
-        }
-        func_8002F434(&this->actor, globalCtx, getItemId, 10000.0f, 100.0f);
+        RandomizerCheck check = GetCheckFromActor(globalCtx->sceneNum, this->actor.id, this->actor.params);
+        func_8002F434(&this->actor, globalCtx, getItemId, 10000.0f, 100.0f, check);
     } else if (!Player_InBlockingCsMode(globalCtx, GET_PLAYER(globalCtx))) {
         if (adult) {
             OnePointCutscene_Init(globalCtx, 0x25E8, 999, &this->actor, MAIN_CAM);

@@ -412,7 +412,7 @@ s32 EnHy_IsOsAnimeObjectLoaded(EnHy* this, GlobalContext* globalCtx) {
 void func_80A6F7CC(EnHy* this, GlobalContext* globalCtx, s32 getItemId) {
     this->unkGetItemId = getItemId;
     func_8002F434(&this->actor, globalCtx, getItemId, this->actor.xzDistToPlayer + 1.0f,
-                  fabsf(this->actor.yDistToPlayer) + 1.0f);
+                  fabsf(this->actor.yDistToPlayer) + 1.0f, this->check);
 }
 
 u16 func_80A6F810(GlobalContext* globalCtx, Actor* thisx) {
@@ -659,10 +659,8 @@ s16 func_80A70058(GlobalContext* globalCtx, Actor* thisx) {
                     gSaveContext.dogParams = 0;
                     break;
                 case 0x709F: {
-                    GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_MARKET_LOST_DOG, GI_HEART_PIECE);
-                    if (getItemId == GI_ARCHIPELAGO_ITEM) {
-                        SetArchipelagoCurrentCheck(RC_MARKET_LOST_DOG);
-                    }
+                    this->check = RC_MARKET_LOST_DOG;
+                    GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(this->check, GI_HEART_PIECE);
                     func_80A6F7CC(this, globalCtx, (gSaveContext.infTable[25] & 2) ? GI_RUPEE_BLUE : gSaveContext.n64ddFlag ? getItemId : GI_HEART_PIECE);
                     this->actionFunc = func_80A714C4;
                     break;
@@ -1056,7 +1054,7 @@ void func_80A714C4(EnHy* this, GlobalContext* globalCtx) {
         this->actionFunc = func_80A71530;
     } else {
         func_8002F434(&this->actor, globalCtx, this->unkGetItemId, this->actor.xzDistToPlayer + 1.0f,
-                      fabsf(this->actor.yDistToPlayer) + 1.0f);
+                      fabsf(this->actor.yDistToPlayer) + 1.0f, this->check);
     }
 }
 

@@ -1216,7 +1216,7 @@ void func_80A99504(EnKo* this, GlobalContext* globalCtx) {
         this->actor.parent = NULL;
         this->actionFunc = func_80A99560;
     } else {
-        func_8002F434(&this->actor, globalCtx, GI_SAW, 120.0f, 10.0f);
+        func_8002F434(&this->actor, globalCtx, GI_SAW, 120.0f, 10.0f, RC_UNKNOWN_CHECK);
     }
 }
 

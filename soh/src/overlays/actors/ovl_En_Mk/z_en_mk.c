@@ -96,14 +96,14 @@ void func_80AACA94(EnMk* this, GlobalContext* globalCtx) {
         func_80088AA0(240);
         gSaveContext.eventInf[1] &= ~1;
     } else {
-        func_8002F434(&this->actor, globalCtx, GI_EYEDROPS, 10000.0f, 50.0f);
+        func_8002F434(&this->actor, globalCtx, GI_EYEDROPS, 10000.0f, 50.0f, RC_UNKNOWN_CHECK);
     }
 }
 
 void func_80AACB14(EnMk* this, GlobalContext* globalCtx) {
     if (Actor_TextboxIsClosing(&this->actor, globalCtx)) {
         this->actionFunc = func_80AACA94;
-        func_8002F434(&this->actor, globalCtx, GI_EYEDROPS, 10000.0f, 50.0f);
+        func_8002F434(&this->actor, globalCtx, GI_EYEDROPS, 10000.0f, 50.0f, RC_UNKNOWN_CHECK);
     }
 }
 
@@ -198,22 +198,18 @@ void func_80AACFA0(EnMk* this, GlobalContext* globalCtx) {
         gSaveContext.itemGetInf[1] |= 1;
     } else {
         // not sure when/how/if this is getting called
-        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_LH_LAB_DIVE, GI_HEART_PIECE);
-        if (getItemId == GI_ARCHIPELAGO_ITEM) {
-            SetArchipelagoCurrentCheck(RC_LH_LAB_DIVE);
-        }
-        func_8002F434(&this->actor, globalCtx, gSaveContext.n64ddFlag ? getItemId : GI_HEART_PIECE, 10000.0f, 50.0f);
+        RandomizerCheck check = RC_LH_LAB_DIVE;
+        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_HEART_PIECE);
+        func_8002F434(&this->actor, globalCtx, gSaveContext.n64ddFlag ? getItemId : GI_HEART_PIECE, 10000.0f, 50.0f, check);
     }
 }
 
 void func_80AAD014(EnMk* this, GlobalContext* globalCtx) {
     if (Actor_TextboxIsClosing(&this->actor, globalCtx)) {
         this->actionFunc = func_80AACFA0;
-        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_LH_LAB_DIVE, GI_HEART_PIECE);
-        if (getItemId == GI_ARCHIPELAGO_ITEM) {
-            SetArchipelagoCurrentCheck(RC_LH_LAB_DIVE);
-        }
-        func_8002F434(&this->actor, globalCtx, gSaveContext.n64ddFlag ? getItemId : GI_HEART_PIECE, 10000.0f, 50.0f);
+        RandomizerCheck check = RC_LH_LAB_DIVE;
+        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_HEART_PIECE);
+        func_8002F434(&this->actor, globalCtx, gSaveContext.n64ddFlag ? getItemId : GI_HEART_PIECE, 10000.0f, 50.0f, check);
     }
 
     this->flags |= 1;

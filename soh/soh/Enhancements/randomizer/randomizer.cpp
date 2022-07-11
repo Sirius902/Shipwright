@@ -1378,7 +1378,8 @@ std::unordered_map<std::string, RandomizerGet> SpoilerfileGetNameToEnum = {
     { "Acheter: Potion Rouge [50]", RG_BUY_RED_POTION_50 },
     { "Triforce", RG_TRIFORCE },
     { "Hint", RG_HINT },
-    { "Indice", RG_HINT }
+    { "Indice", RG_HINT },
+    { "Archipelago Item", RG_ARCHIPELAGO_ITEM }
 };
 
 std::unordered_map<std::string, RandomizerSettingKey> SpoilerfileSettingNameToEnum = {
@@ -1964,12 +1965,10 @@ GetItemID Randomizer::GetRandomizedItemId(GetItemID ogId, s16 actorId, s16 actor
 }
 
 GetItemID Randomizer::GetItemFromActor(s16 actorId, s16 actorParams, s16 sceneNum, GetItemID ogItemId) {
-    return GI_ARCHIPELAGO_ITEM;
     return GetItemFromGet(this->itemLocations[GetCheckFromActor(sceneNum, actorId, actorParams)], ogItemId);
 }
 
 GetItemID Randomizer::GetItemFromGet(RandomizerGet randoGet, GetItemID ogItemId) {
-    return GI_ARCHIPELAGO_ITEM;
     switch (randoGet) {
         case RG_NONE:
             return ogItemId;
@@ -2422,7 +2421,6 @@ u8 Randomizer::GetRandoSettingValue(RandomizerSettingKey randoSettingKey) {
 }
 
 GetItemID Randomizer::GetRandomizedItemIdFromKnownCheck(RandomizerCheck randomizerCheck, GetItemID ogId) {
-    return GI_ARCHIPELAGO_ITEM;
     return GetItemFromGet(this->itemLocations[randomizerCheck], ogId);
 }
 

@@ -4992,6 +4992,7 @@ void Fishing_HandleOwnerDialog(Fishing* this, GlobalContext* globalCtx) {
 
                 Message_CloseTextbox(globalCtx);
 
+                RandomizerCheck check = RC_UNKNOWN_CHECK;
                 if (D_80B7E07C == 0) {
                     D_80B7E078 = D_80B7A670;
                     D_80B7A670 = 0.0f;
@@ -5043,12 +5044,9 @@ void Fishing_HandleOwnerDialog(Fishing* this, GlobalContext* globalCtx) {
                             if (D_80B7E078 >= Fishing_GetMinimumRequiredScore()) {
                                 HIGH_SCORE(HS_FISHING) |= 0x400;
                                 sSinkingLureLocation = (u8)Rand_ZeroFloat(3.999f) + 1;
-                                GetItemID randoGetItemId = GetRandomizedItemIdFromKnownCheck(RC_LH_CHILD_FISHING, GI_HEART_PIECE);
-                                if (randoGetItemId == GI_ARCHIPELAGO_ITEM) {
-                                    SetArchipelagoCurrentCheck(RC_LH_CHILD_FISHING);
-                                }
+                                check = RC_LH_CHILD_FISHING;
                                 getItemId = gSaveContext.n64ddFlag ?
-                                                randoGetItemId :
+                                                GetRandomizedItemIdFromKnownCheck(check, GI_HEART_PIECE) :
                                                 GI_HEART_PIECE; 
                             }
                         }
@@ -5057,12 +5055,9 @@ void Fishing_HandleOwnerDialog(Fishing* this, GlobalContext* globalCtx) {
                             if (D_80B7E078 >= Fishing_GetMinimumRequiredScore()) {
                                 HIGH_SCORE(HS_FISHING) |= 0x800;
                                 sSinkingLureLocation = (u8)Rand_ZeroFloat(3.999f) + 1;
-                                GetItemID randoGetItemId = GetRandomizedItemIdFromKnownCheck(RC_LH_ADULT_FISHING, GI_SCALE_GOLD);
-                                if (randoGetItemId == GI_ARCHIPELAGO_ITEM) {
-                                    SetArchipelagoCurrentCheck(RC_LH_ADULT_FISHING);
-                                }
+                                check = RC_LH_ADULT_FISHING;                                
                                 getItemId = gSaveContext.n64ddFlag ?
-                                                randoGetItemId :
+                                                GetRandomizedItemIdFromKnownCheck(check, GI_SCALE_GOLD) :
                                                 GI_SCALE_GOLD; 
                             }
                         }
@@ -5073,7 +5068,7 @@ void Fishing_HandleOwnerDialog(Fishing* this, GlobalContext* globalCtx) {
                 }
 
                 this->actor.parent = NULL;
-                func_8002F434(&this->actor, globalCtx, getItemId, 2000.0f, 1000.0f);
+                func_8002F434(&this->actor, globalCtx, getItemId, 2000.0f, 1000.0f, check);
                 this->unk_15C = 23;
             }
             break;
@@ -5134,14 +5129,12 @@ void Fishing_HandleOwnerDialog(Fishing* this, GlobalContext* globalCtx) {
             if (Actor_HasParent(&this->actor, globalCtx)) {
                 this->unk_15C = 24;
             } else {
+                RandomizerCheck check = RC_LH_ADULT_FISHING;
                 if (!gSaveContext.n64ddFlag) {
-                    func_8002F434(&this->actor, globalCtx, GI_SCALE_GOLD, 2000.0f, 1000.0f);
+                    func_8002F434(&this->actor, globalCtx, GI_SCALE_GOLD, 2000.0f, 1000.0f, check);
                 } else {
-                    GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_LH_ADULT_FISHING, GI_SCALE_GOLD);
-                    if (getItemId == GI_ARCHIPELAGO_ITEM) {
-                        SetArchipelagoCurrentCheck(RC_LH_ADULT_FISHING);
-                    }
-                    func_8002F434(&this->actor, globalCtx, getItemId, 2000.0f, 1000.0f);
+                    GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_SCALE_GOLD);
+                    func_8002F434(&this->actor, globalCtx, getItemId, 2000.0f, 1000.0f, check);
                 }
             }
             break;

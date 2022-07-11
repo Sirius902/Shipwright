@@ -59,15 +59,12 @@ void ItemBHeart_Update(Actor* thisx, GlobalContext* globalCtx) {
         Flags_SetCollectible(globalCtx, 0x1F);
         Actor_Kill(&this->actor);
     } else {
+        RandomizerCheck check = GetCheckFromActor(globalCtx->sceneNum, this->actor.id, this->actor.params);
         if (gSaveContext.n64ddFlag) {
             s32 getItemId = GetRandomizedItemId(GI_HEART_CONTAINER_2, this->actor.id, this->actor.params, globalCtx->sceneNum);
-
-            if (getItemId == GI_ARCHIPELAGO_ITEM) {
-                SetArchipelagoCurrentCheck(GetCheckFromActor(globalCtx->sceneNum, this->actor.id, this->actor.params));
-            }
-            func_8002F434(&this->actor, globalCtx, getItemId, 30.0f, 40.0f);
+            func_8002F434(&this->actor, globalCtx, getItemId, 30.0f, 40.0f, check);
         } else {
-            func_8002F434(&this->actor, globalCtx, GI_HEART_CONTAINER_2, 30.0f, 40.0f);
+            func_8002F434(&this->actor, globalCtx, GI_HEART_CONTAINER_2, 30.0f, 40.0f, check);
         }
     }
 }

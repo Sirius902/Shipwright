@@ -453,11 +453,8 @@ void func_809EEA00(EnDivingGame* this, GlobalContext* globalCtx) {
     if ((this->unk_292 == Message_GetState(&globalCtx->msgCtx) && Message_ShouldAdvance(globalCtx))) {
         Message_CloseTextbox(globalCtx);
         this->actor.parent = NULL;
-        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_ZD_DIVING_MINIGAME, GI_SCALE_SILVER);
-        if (getItemId == GI_ARCHIPELAGO_ITEM) {
-            SetArchipelagoCurrentCheck(RC_ZD_DIVING_MINIGAME);
-        }
-        func_8002F434(&this->actor, globalCtx, gSaveContext.n64ddFlag ? getItemId : GI_SCALE_SILVER, 90.0f, 10.0f);
+        RandomizerCheck check = RC_ZD_DIVING_MINIGAME;
+        func_8002F434(&this->actor, globalCtx, gSaveContext.n64ddFlag ? GetRandomizedItemIdFromKnownCheck(check, GI_SCALE_SILVER) : GI_SCALE_SILVER, 90.0f, 10.0f, check);
         this->actionFunc = func_809EEA90;
     }
 }
@@ -467,11 +464,8 @@ void func_809EEA90(EnDivingGame* this, GlobalContext* globalCtx) {
     if (Actor_HasParent(&this->actor, globalCtx)) {
         this->actionFunc = func_809EEAF8;
     } else {
-        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_ZD_DIVING_MINIGAME, GI_SCALE_SILVER);
-        if (getItemId == GI_ARCHIPELAGO_ITEM) {
-            SetArchipelagoCurrentCheck(RC_ZD_DIVING_MINIGAME);
-        }
-        func_8002F434(&this->actor, globalCtx, gSaveContext.n64ddFlag ? getItemId : GI_SCALE_SILVER, 90.0f, 10.0f);
+        RandomizerCheck check = RC_ZD_DIVING_MINIGAME;
+        func_8002F434(&this->actor, globalCtx, gSaveContext.n64ddFlag ? GetRandomizedItemIdFromKnownCheck(check, GI_SCALE_SILVER) : GI_SCALE_SILVER, 90.0f, 10.0f, check);
     }
 }
 

@@ -137,7 +137,7 @@ void func_80B17934(EnTakaraMan* this, GlobalContext* globalCtx) {
                     Rupees_ChangeBy(-10);
                     this->unk_214 = 1;
                     this->actor.parent = NULL;
-                    func_8002F434(&this->actor, globalCtx, GI_DOOR_KEY, 2000.0f, 1000.0f);
+                    func_8002F434(&this->actor, globalCtx, GI_DOOR_KEY, 2000.0f, 1000.0f, RC_UNKNOWN_CHECK);
                     this->actionFunc = func_80B17A6C;
                 } else {
                     Message_CloseTextbox(globalCtx);
@@ -162,7 +162,7 @@ void func_80B17A6C(EnTakaraMan* this, GlobalContext* globalCtx) {
     if (Actor_HasParent(&this->actor, globalCtx)) {
         this->actionFunc = func_80B17AC4;
     } else {
-        func_8002F434(&this->actor, globalCtx, GI_DOOR_KEY, 2000.0f, 1000.0f);
+        func_8002F434(&this->actor, globalCtx, GI_DOOR_KEY, 2000.0f, 1000.0f, RC_UNKNOWN_CHECK);
     }
 }
 

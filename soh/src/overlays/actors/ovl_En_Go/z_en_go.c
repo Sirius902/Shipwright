@@ -227,7 +227,7 @@ s16 EnGo_SetFlagsGetStates(GlobalContext* globalCtx, Actor* thisx) {
                     unkState = 0;
                     break;
                 case 0x3036:
-                    func_8002F434(thisx, globalCtx, GI_TUNIC_GORON, xzRange, yRange);
+                    func_8002F434(thisx, globalCtx, GI_TUNIC_GORON, xzRange, yRange, RC_UNKNOWN_CHECK);
                     gSaveContext.infTable[16] |= 0x2000; // EnGo exclusive flag
                     unkState = 2;
                     break;
@@ -953,13 +953,11 @@ void EnGo_GetItem(EnGo* this, GlobalContext* globalCtx) {
         EnGo_SetupAction(this, func_80A40C78);
     } else {
         this->unk_20C = 0;
+        RandomizerCheck check = RC_UNKNOWN_CHECK;
         if ((this->actor.params & 0xF0) == 0x90) {
             if (INV_CONTENT(ITEM_TRADE_ADULT) == ITEM_CLAIM_CHECK) {
-                GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_DMT_TRADE_CLAIM_CHECK, GI_SWORD_BGS);
-                if (getItemId == GI_ARCHIPELAGO_ITEM) {
-                    SetArchipelagoCurrentCheck(RC_DMT_TRADE_CLAIM_CHECK);
-                }
-                getItemId = gSaveContext.n64ddFlag ? getItemId : GI_SWORD_BGS;
+                check = RC_DMT_TRADE_CLAIM_CHECK;
+                getItemId = gSaveContext.n64ddFlag ? GetRandomizedItemIdFromKnownCheck(check, GI_SWORD_BGS) : GI_SWORD_BGS;
                 this->unk_20C = 1;
             }
             if (INV_CONTENT(ITEM_TRADE_ADULT) == ITEM_EYEDROPS) {
@@ -976,7 +974,7 @@ void EnGo_GetItem(EnGo* this, GlobalContext* globalCtx) {
 
         yDist = fabsf(this->actor.yDistToPlayer) + 1.0f;
         xzDist = this->actor.xzDistToPlayer + 1.0f;
-        func_8002F434(&this->actor, globalCtx, getItemId, xzDist, yDist);
+        func_8002F434(&this->actor, globalCtx, getItemId, xzDist, yDist, check);
     }
 }
 

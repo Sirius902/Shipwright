@@ -189,16 +189,14 @@ void ItemOcarina_WaitInWater(ItemOcarina* this, GlobalContext* globalCtx) {
         this->actionFunc = ItemOcarina_StartSoTCutscene;
         this->actor.draw = NULL;
     } else {
-        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_HF_OCARINA_OF_TIME_ITEM, GI_OCARINA_OOT);
-        if (getItemId == GI_ARCHIPELAGO_ITEM) {
-            SetArchipelagoCurrentCheck(RC_HF_OCARINA_OF_TIME_ITEM);
-        }
+        RandomizerCheck check = RC_HF_OCARINA_OF_TIME_ITEM;
+        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_OCARINA_OOT);
 
         func_8002F434(&this->actor, globalCtx,
                       gSaveContext.n64ddFlag
                           ? getItemId
                           : GI_OCARINA_OOT,
-                      30.0f, 50.0f);
+                      30.0f, 50.0f, check);
 
         if ((globalCtx->gameplayFrames & 13) == 0) {
             EffectSsBubble_Spawn(globalCtx, &this->actor.world.pos, 0.0f, 0.0f, 10.0f, 0.13f);

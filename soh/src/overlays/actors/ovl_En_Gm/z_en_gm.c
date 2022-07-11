@@ -243,7 +243,7 @@ void EnGm_ProcessChoiceIndex(EnGm* this, GlobalContext* globalCtx) {
                     Message_ContinueTextbox(globalCtx, 0xC8);
                     this->actionFunc = func_80A3DD7C;
                 } else {
-                    func_8002F434(&this->actor, globalCtx, GI_SWORD_KNIFE, 415.0f, 10.0f);
+                    func_8002F434(&this->actor, globalCtx, GI_SWORD_KNIFE, 415.0f, 10.0f, RC_UNKNOWN_CHECK);
                     this->actionFunc = func_80A3DF00;
                 }
                 break;
@@ -260,7 +260,7 @@ void func_80A3DF00(EnGm* this, GlobalContext* globalCtx) {
         this->actor.parent = NULL;
         this->actionFunc = func_80A3DF60;
     } else {
-        func_8002F434(&this->actor, globalCtx, GI_SWORD_KNIFE, 415.0f, 10.0f);
+        func_8002F434(&this->actor, globalCtx, GI_SWORD_KNIFE, 415.0f, 10.0f, RC_UNKNOWN_CHECK);
     }
 }
 

@@ -279,7 +279,7 @@ s32 EnGo2_SpawnDust(EnGo2* this, u8 initialTimer, f32 scale, f32 scaleStep, s32 
 void EnGo2_GetItem(EnGo2* this, GlobalContext* globalCtx, s32 getItemId) {
     this->getItemId = getItemId;
     func_8002F434(&this->actor, globalCtx, getItemId, this->actor.xzDistToPlayer + 1.0f,
-                  fabsf(this->actor.yDistToPlayer) + 1.0f);
+                  fabsf(this->actor.yDistToPlayer) + 1.0f, this->check);
 }
 
 s32 EnGo2_GetDialogState(EnGo2* this, GlobalContext* globalCtx) {
@@ -339,13 +339,11 @@ s16 EnGo2_GetStateGoronCityRollingBig(GlobalContext* globalCtx, EnGo2* this) {
             if (Message_ShouldAdvance(globalCtx)) {
                 if (this->actor.textId == 0x3012) {
                     this->actionFunc = EnGo2_SetupGetItem;
+                    this->check = RC_GC_ROLLING_GORON_AS_CHILD;
                     if(!gSaveContext.n64ddFlag) {
                         bombBagUpgrade = CUR_CAPACITY(UPG_BOMB_BAG) == 30 ? GI_BOMB_BAG_40 : GI_BOMB_BAG_30;    
                     } else {
-                        bombBagUpgrade = GetRandomizedItemIdFromKnownCheck(RC_GC_ROLLING_GORON_AS_CHILD, GI_BOMB_BAG_40);
-                        if (bombBagUpgrade == GI_ARCHIPELAGO_ITEM) {
-                            SetArchipelagoCurrentCheck(RC_GC_ROLLING_GORON_AS_CHILD);
-                        }
+                        bombBagUpgrade = GetRandomizedItemIdFromKnownCheck(this->check, GI_BOMB_BAG_40);
                     }
                     EnGo2_GetItem(this, globalCtx, bombBagUpgrade);
                     Message_CloseTextbox(globalCtx);
@@ -542,11 +540,8 @@ s16 EnGo2_GetStateGoronCityLink(GlobalContext* globalCtx, EnGo2* this) {
                 
                 gSaveContext.infTable[16] |= 0x200;
 
-                GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_GC_ROLLING_GORON_AS_ADULT, GI_TUNIC_GORON);
-                if (getItemId == GI_ARCHIPELAGO_ITEM) {
-                    SetArchipelagoCurrentCheck(RC_GC_ROLLING_GORON_AS_ADULT);
-                }
-                EnGo2_GetItem(this, globalCtx, getItemId);
+                this->check = RC_GC_ROLLING_GORON_AS_ADULT;
+                EnGo2_GetItem(this, globalCtx, GetRandomizedItemIdFromKnownCheck(this->check, GI_TUNIC_GORON));
                 this->actionFunc = EnGo2_SetupGetItem;
                 Flags_SetTreasure(globalCtx, 0x1F);
                 return 2;
@@ -619,17 +614,14 @@ s16 EnGo2_GetStateGoronDmtBiggoron(GlobalContext* globalCtx, EnGo2* this) {
                 if((!gSaveContext.n64ddFlag && gSaveContext.bgsFlag) || (gSaveContext.n64ddFlag && Flags_GetTreasure(globalCtx, 0x1F))) {
                     return 0;
                 }
-                
+
+                this->check = RC_DMT_TRADE_CLAIM_CHECK;
                 if(gSaveContext.n64ddFlag) {
                     if (INV_CONTENT(ITEM_CLAIM_CHECK) != ITEM_CLAIM_CHECK) {
                         return 0;
                     }
 
-                    GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_DMT_TRADE_CLAIM_CHECK, GI_SWORD_BGS);
-                    if (getItemId == GI_ARCHIPELAGO_ITEM) {
-                        SetArchipelagoCurrentCheck(RC_DMT_TRADE_CLAIM_CHECK);
-                    }
-                    EnGo2_GetItem(this, globalCtx, getItemId);
+                    EnGo2_GetItem(this, globalCtx, GetRandomizedItemIdFromKnownCheck(this->check, GI_SWORD_BGS));
                     Flags_SetTreasure(globalCtx, 0x1F);
                 } else {
                     EnGo2_GetItem(this, globalCtx, GI_SWORD_BGS);
@@ -1541,6 +1533,8 @@ void EnGo2_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnGo2* this = (EnGo2*)thisx;
     s32 pad;
 
+    this->check = RC_UNKNOWN_CHECK;
+
     ActorShape_Init(&this->actor.shape, 0.0f, ActorShadow_DrawCircle, 28.0f);
     SkelAnime_InitFlex(globalCtx, &this->skelAnime, &gGoronSkel, NULL, this->jointTable, this->morphTable, 18);
     Collider_InitCylinder(globalCtx, &this->collider);
@@ -1817,7 +1811,7 @@ void EnGo2_SetupGetItem(EnGo2* this, GlobalContext* globalCtx) {
         this->actionFunc = EnGo2_SetGetItem;
     } else {
         func_8002F434(&this->actor, globalCtx, this->getItemId, this->actor.xzDistToPlayer + 1.0f,
-                      fabsf(this->actor.yDistToPlayer) + 1.0f);
+                      fabsf(this->actor.yDistToPlayer) + 1.0f, this->check);
     }
 }
 

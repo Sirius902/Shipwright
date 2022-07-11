@@ -187,29 +187,33 @@ void EnBomBowlPit_GivePrize(EnBomBowlPit* this, GlobalContext* globalCtx) {
             case EXITEM_BOMB_BAG_BOWLING:
                 this->getItemId =
                     GetRandomizedItemIdFromKnownCheck(RC_MARKET_BOMBCHU_BOWLING_FIRST_PRIZE, GI_BOMB_BAG_20);
-                if (this->getItemId == GI_ARCHIPELAGO_ITEM) {
-                    SetArchipelagoCurrentCheck(RC_MARKET_BOMBCHU_BOWLING_FIRST_PRIZE);
-                }
                 break;
             case EXITEM_HEART_PIECE_BOWLING:
                 this->getItemId =
                     GetRandomizedItemIdFromKnownCheck(RC_MARKET_BOMBCHU_BOWLING_SECOND_PRIZE, GI_HEART_PIECE);
-                if (this->getItemId == GI_ARCHIPELAGO_ITEM) {
-                    SetArchipelagoCurrentCheck(RC_MARKET_BOMBCHU_BOWLING_SECOND_PRIZE);
-                }
                 break;
             case EXITEM_BOMBCHUS_BOWLING:
                 this->getItemId = GetRandomizedItemIdFromKnownCheck(RC_MARKET_BOMBCHU_BOWLING_BOMBCHUS, GI_BOMBCHUS_10);
-                if (this->getItemId == GI_ARCHIPELAGO_ITEM) {
-                    SetArchipelagoCurrentCheck(RC_MARKET_BOMBCHU_BOWLING_BOMBCHUS);
-                }
                 break;
         }
     }
 
+    RandomizerCheck check = RC_UNKNOWN_CHECK;
+    switch (this->prizeIndex) {
+        case EXITEM_BOMB_BAG_BOWLING:
+            check = RC_MARKET_BOMBCHU_BOWLING_FIRST_PRIZE;
+            break;
+        case EXITEM_HEART_PIECE_BOWLING:
+            check = RC_MARKET_BOMBCHU_BOWLING_SECOND_PRIZE;
+            break;
+        case EXITEM_BOMBCHUS_BOWLING:
+            check = RC_MARKET_BOMBCHU_BOWLING_BOMBCHUS;
+            break;
+    }
+
     player->stateFlags1 &= ~0x20000000;
     this->actor.parent = NULL;
-    func_8002F434(&this->actor, globalCtx, this->getItemId, 2000.0f, 1000.0f);
+    func_8002F434(&this->actor, globalCtx, this->getItemId, 2000.0f, 1000.0f, check);
     player->stateFlags1 |= 0x20000000;
     this->actionFunc = EnBomBowlPit_WaitTillPrizeGiven;
 }
@@ -218,7 +222,20 @@ void EnBomBowlPit_WaitTillPrizeGiven(EnBomBowlPit* this, GlobalContext* globalCt
     if (Actor_HasParent(&this->actor, globalCtx)) {
         this->actionFunc = EnBomBowlPit_Reset;
     } else {
-        func_8002F434(&this->actor, globalCtx, this->getItemId, 2000.0f, 1000.0f);
+        RandomizerCheck check = RC_UNKNOWN_CHECK;
+        switch (this->prizeIndex) {
+            case EXITEM_BOMB_BAG_BOWLING:
+                check = RC_MARKET_BOMBCHU_BOWLING_FIRST_PRIZE;
+                break;
+            case EXITEM_HEART_PIECE_BOWLING:
+                check = RC_MARKET_BOMBCHU_BOWLING_SECOND_PRIZE;
+                break;
+            case EXITEM_BOMBCHUS_BOWLING:
+                check = RC_MARKET_BOMBCHU_BOWLING_BOMBCHUS;
+                break;
+        }
+
+        func_8002F434(&this->actor, globalCtx, this->getItemId, 2000.0f, 1000.0f, check);
     }
 }
 

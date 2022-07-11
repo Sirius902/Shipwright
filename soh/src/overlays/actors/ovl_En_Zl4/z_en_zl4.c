@@ -234,10 +234,7 @@ void GivePlayerRandoRewardZeldaChild(EnZl4* zelda, GlobalContext* globalCtx, Ran
     } else if (!Flags_GetTreasure(globalCtx, 0x1E) && !GetRandoSettingValue(RSK_SKIP_CHILD_ZELDA) && Actor_TextboxIsClosing(&zelda->actor, globalCtx) &&
                (globalCtx->msgCtx.textId == 0x703C || globalCtx->msgCtx.textId == 0x703D)) {
         GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_LETTER_ZELDA);
-        if (getItemId == GI_ARCHIPELAGO_ITEM) {
-            SetArchipelagoCurrentCheck(check);
-        }
-        func_8002F434(&zelda->actor, globalCtx, getItemId, 10000.0f, 100.0f);
+        func_8002F434(&zelda->actor, globalCtx, getItemId, 10000.0f, 100.0f, check);
     } else if (Flags_GetTreasure(globalCtx, 0x1E) && !Player_InBlockingCsMode(globalCtx, GET_PLAYER(globalCtx))) {
         gSaveContext.unk_13EE = 0x32;
         gSaveContext.eventChkInf[4] |= 1;
@@ -1129,7 +1126,7 @@ s32 EnZl4_CsMakePlan(EnZl4* this, GlobalContext* globalCtx) {
                 this->talkState = 7;
                 globalCtx->talkWithPlayer(globalCtx, &this->actor);
                 func_8002F434(&this->actor, globalCtx, GI_LETTER_ZELDA, fabsf(this->actor.xzDistToPlayer) + 1.0f,
-                              fabsf(this->actor.yDistToPlayer) + 1.0f);
+                              fabsf(this->actor.yDistToPlayer) + 1.0f, RC_UNKNOWN_CHECK);
                 globalCtx->msgCtx.stateTimer = 4;
                 globalCtx->msgCtx.msgMode = MSGMODE_TEXT_CLOSING;
             }
@@ -1140,7 +1137,7 @@ s32 EnZl4_CsMakePlan(EnZl4* this, GlobalContext* globalCtx) {
                 this->talkState++;
             } else {
                 func_8002F434(&this->actor, globalCtx, GI_LETTER_ZELDA, fabsf(this->actor.xzDistToPlayer) + 1.0f,
-                              fabsf(this->actor.yDistToPlayer) + 1.0f);
+                              fabsf(this->actor.yDistToPlayer) + 1.0f, RC_UNKNOWN_CHECK);
             }
             // no break here is required for matching
     }

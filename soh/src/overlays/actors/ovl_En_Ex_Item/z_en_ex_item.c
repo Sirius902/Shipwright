@@ -402,9 +402,10 @@ void EnExItem_TargetPrizeApproach(EnExItem* this, GlobalContext* globalCtx) {
         this->actor.draw = NULL;
         func_8002DF54(globalCtx, NULL, 7);
         this->actor.parent = NULL;
+        RandomizerCheck check = RC_LW_TARGET_IN_WOODS;
         if (gSaveContext.n64ddFlag) {
             GET_PLAYER(globalCtx)->stateFlags1 &= ~(PLAYER_STATE1_10 | PLAYER_STATE1_11);
-            getItemId = GetRandomizedItemIdFromKnownCheck(RC_LW_TARGET_IN_WOODS, GI_BULLET_BAG_50);
+            getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_BULLET_BAG_50);
         } else {
             if (CUR_UPG_VALUE(UPG_BULLET_BAG) == 1) {
                 getItemId = GI_BULLET_BAG_40;
@@ -412,7 +413,7 @@ void EnExItem_TargetPrizeApproach(EnExItem* this, GlobalContext* globalCtx) {
                 getItemId = GI_BULLET_BAG_50;
             }
         }
-        func_8002F434(&this->actor, globalCtx, getItemId, 2000.0f, 1000.0f);
+        func_8002F434(&this->actor, globalCtx, getItemId, 2000.0f, 1000.0f, check);
         this->actionFunc = EnExItem_TargetPrizeGive;
     }
 }
@@ -423,16 +424,14 @@ void EnExItem_TargetPrizeGive(EnExItem* this, GlobalContext* globalCtx) {
     if (Actor_HasParent(&this->actor, globalCtx)) {
         this->actionFunc = EnExItem_TargetPrizeFinish;
     } else {
+        RandomizerCheck check = RC_LW_TARGET_IN_WOODS;
         if (gSaveContext.n64ddFlag) {
-            getItemId = GetRandomizedItemIdFromKnownCheck(RC_LW_TARGET_IN_WOODS, GI_BULLET_BAG_50);
-            if (getItemId == GI_ARCHIPELAGO_ITEM) {
-                SetArchipelagoCurrentCheck(RC_LW_TARGET_IN_WOODS);
-            }
+            getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_BULLET_BAG_50);
         } else {
             getItemId = (CUR_UPG_VALUE(UPG_BULLET_BAG) == 2) ? GI_BULLET_BAG_50 : GI_BULLET_BAG_40;
         }
 
-        func_8002F434(&this->actor, globalCtx, getItemId, 2000.0f, 1000.0f);
+        func_8002F434(&this->actor, globalCtx, getItemId, 2000.0f, 1000.0f, check);
     }
 }
 

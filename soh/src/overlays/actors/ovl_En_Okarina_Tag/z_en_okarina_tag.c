@@ -328,10 +328,7 @@ void GivePlayerRandoRewardSunSong(EnOkarinaTag* song, GlobalContext* globalCtx, 
         Flags_SetTreasure(globalCtx, 0x1F);
     } else if (!Flags_GetTreasure(globalCtx, 0x1F)) {
         GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_LETTER_ZELDA);
-        if (getItemId == GI_ARCHIPELAGO_ITEM) {
-            SetArchipelagoCurrentCheck(check);
-        }
-        func_8002F434(&song->actor, globalCtx, getItemId, 10000.0f, 100.0f);
+        func_8002F434(&song->actor, globalCtx, getItemId, 10000.0f, 100.0f, check);
     }
 }
 

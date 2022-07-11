@@ -214,7 +214,8 @@ void func_809DF778(EnCow* this, GlobalContext* globalCtx) {
         this->actor.parent = NULL;
         this->actionFunc = func_809DF730;
     } else {
-        func_8002F434(&this->actor, globalCtx, GI_MILK, 10000.0f, 100.0f);
+        // ARCHIPELAGO_TODO: Cowsanity
+        func_8002F434(&this->actor, globalCtx, GI_MILK, 10000.0f, 100.0f, RC_UNKNOWN_CHECK);
     }
 }
 
@@ -223,7 +224,8 @@ void func_809DF7D8(EnCow* this, GlobalContext* globalCtx) {
         this->actor.flags &= ~ACTOR_FLAG_16;
         Message_CloseTextbox(globalCtx);
         this->actionFunc = func_809DF778;
-        func_8002F434(&this->actor, globalCtx, GI_MILK, 10000.0f, 100.0f);
+        // ARCHIPELAGO_TODO: Cowsanity
+        func_8002F434(&this->actor, globalCtx, GI_MILK, 10000.0f, 100.0f, RC_UNKNOWN_CHECK);
     }
 }
 

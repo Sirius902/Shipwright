@@ -156,7 +156,7 @@ void func_80A6E740(EnHs* this, GlobalContext* globalCtx) {
         this->actor.parent = NULL;
         func_80A6E3A0(this, func_80A6E630);
     } else {
-        func_8002F434(&this->actor, globalCtx, GI_ODD_MUSHROOM, 10000.0f, 50.0f);
+        func_8002F434(&this->actor, globalCtx, GI_ODD_MUSHROOM, 10000.0f, 50.0f, RC_UNKNOWN_CHECK);
     }
 
     this->unk_2A8 |= 1;
@@ -167,7 +167,7 @@ void func_80A6E7BC(EnHs* this, GlobalContext* globalCtx) {
         switch (globalCtx->msgCtx.choiceIndex) {
             case 0:
                 func_80A6E3A0(this, func_80A6E740);
-                func_8002F434(&this->actor, globalCtx, GI_ODD_MUSHROOM, 10000.0f, 50.0f);
+                func_8002F434(&this->actor, globalCtx, GI_ODD_MUSHROOM, 10000.0f, 50.0f, RC_UNKNOWN_CHECK);
                 break;
             case 1:
                 Message_ContinueTextbox(globalCtx, 0x10B4);

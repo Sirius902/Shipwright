@@ -351,11 +351,9 @@ void func_80A2FA50(EnGb* this, GlobalContext* globalCtx) {
 
 void func_80A2FB40(EnGb* this, GlobalContext* globalCtx) {
     if (Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_DONE && Message_ShouldAdvance(globalCtx)) {
-        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_MARKET_10_BIG_POES, GI_BOTTLE);
-        if (getItemId == GI_ARCHIPELAGO_ITEM) {
-            SetArchipelagoCurrentCheck(RC_MARKET_10_BIG_POES);
-        }
-        func_8002F434(&this->dyna.actor, globalCtx, gSaveContext.n64ddFlag ? getItemId : GI_BOTTLE, 100.0f, 10.0f);
+        RandomizerCheck check = RC_MARKET_10_BIG_POES;
+        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_BOTTLE);
+        func_8002F434(&this->dyna.actor, globalCtx, gSaveContext.n64ddFlag ? getItemId : GI_BOTTLE, 100.0f, 10.0f, check);
         this->actionFunc = func_80A2FBB0;
     }
 }
@@ -365,11 +363,9 @@ void func_80A2FBB0(EnGb* this, GlobalContext* globalCtx) {
         this->dyna.actor.parent = NULL;
         this->actionFunc = func_80A2FC0C;
     } else {
-        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_MARKET_10_BIG_POES, GI_BOTTLE);
-        if (getItemId == GI_ARCHIPELAGO_ITEM) {
-            SetArchipelagoCurrentCheck(RC_MARKET_10_BIG_POES);
-        }
-        func_8002F434(&this->dyna.actor, globalCtx, gSaveContext.n64ddFlag ? getItemId : GI_BOTTLE, 100.0f, 10.0f);
+        RandomizerCheck check = RC_MARKET_10_BIG_POES;
+        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_BOTTLE);
+        func_8002F434(&this->dyna.actor, globalCtx, gSaveContext.n64ddFlag ? getItemId : GI_BOTTLE, 100.0f, 10.0f, check);
     }
 }
 

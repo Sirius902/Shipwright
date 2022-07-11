@@ -363,7 +363,7 @@ void EnKarebaba_DeadItemDrop(EnKarebaba* this, GlobalContext* globalCtx) {
     if (Actor_HasParent(&this->actor, globalCtx) || this->actor.params == 0) {
         EnKarebaba_SetupDead(this);
     } else {
-        func_8002F554(&this->actor, globalCtx, GI_STICKS_1);
+        func_8002F554(&this->actor, globalCtx, GI_STICKS_1, RC_UNKNOWN_CHECK);
     }
 }
 

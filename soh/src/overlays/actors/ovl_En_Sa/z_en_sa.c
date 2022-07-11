@@ -625,10 +625,7 @@ void GivePlayerRandoRewardSaria(EnSa* saria, GlobalContext* globalCtx, Randomize
         !Flags_GetTreasure(globalCtx, 0x1F)) {
         Flags_SetTreasure(globalCtx, 0x1F);
     } else if (!Flags_GetTreasure(globalCtx, 0x1F)) {
-        if (getItemId == GI_ARCHIPELAGO_ITEM) {
-            SetArchipelagoCurrentCheck(check);
-        }
-        func_8002F434(&saria->actor, globalCtx, getItemId, 10000.0f, 100.0f);
+        func_8002F434(&saria->actor, globalCtx, getItemId, 10000.0f, 100.0f, check);
     }
 }
 

@@ -199,10 +199,7 @@ void GivePlayerRandoRewardSongOfTime(GlobalContext* globalCtx, RandomizerCheck c
     if (gSaveContext.entranceIndex == 0x050F && player != NULL && !Player_InBlockingCsMode(globalCtx, player) &&
         !Flags_GetTreasure(globalCtx, 0x1F) && gSaveContext.nextTransition == 0xFF) {
         GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_SONG_OF_TIME);
-        if (getItemId == GI_ARCHIPELAGO_ITEM) {
-            SetArchipelagoCurrentCheck(check);
-        }
-        GiveItemWithoutActor(globalCtx, getItemId);
+        GiveItemWithoutActor(globalCtx, getItemId, check);
         Flags_SetTreasure(globalCtx, 0x1F);
     }
 }
@@ -216,10 +213,7 @@ void GivePlayerRandoRewardNocturne(GlobalContext* globalCtx, RandomizerCheck che
         CHECK_QUEST_ITEM(QUEST_MEDALLION_FIRE) && CHECK_QUEST_ITEM(QUEST_MEDALLION_WATER) && player != NULL &&
         !Player_InBlockingCsMode(globalCtx, player) && !Flags_GetEventChkInf(0xAA)) {
         GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_NOCTURNE_OF_SHADOW);
-        if (getItemId == GI_ARCHIPELAGO_ITEM) {
-            SetArchipelagoCurrentCheck(check);
-        }
-        GiveItemWithoutActor(globalCtx, getItemId);
+        GiveItemWithoutActor(globalCtx, getItemId, check);
         Flags_SetEventChkInf(0xAA);
     }
 }
@@ -231,10 +225,7 @@ void GivePlayerRandoRewardRequiem(GlobalContext* globalCtx, RandomizerCheck chec
         if ((gSaveContext.entranceIndex == 0x01E1) && !Flags_GetEventChkInf(0xAC) && player != NULL &&
             !Player_InBlockingCsMode(globalCtx, player)) {
             GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_SONG_OF_TIME);
-            if (getItemId == GI_ARCHIPELAGO_ITEM) {
-                SetArchipelagoCurrentCheck(check);
-            }
-            GiveItemWithoutActor(globalCtx, getItemId);
+            GiveItemWithoutActor(globalCtx, getItemId, check);
             Flags_SetEventChkInf(0xAC);
         }
     }
@@ -248,10 +239,7 @@ void GivePlayerRandoRewardZeldaLightArrowsGift(GlobalContext* globalCtx, Randomi
         !Flags_GetTreasure(globalCtx, 0x1E) && player != NULL && !Player_InBlockingCsMode(globalCtx, player) &&
         globalCtx->sceneLoadFlag == 0 && player->getItemId == GI_NONE) {
         GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_ARROW_LIGHT);
-        if (getItemId == GI_ARCHIPELAGO_ITEM) {
-            SetArchipelagoCurrentCheck(check);
-        }
-        GiveItemWithoutActor(globalCtx, getItemId);
+        GiveItemWithoutActor(globalCtx, getItemId, check);
         Flags_SetTreasure(globalCtx, 0x1E);
     }
 }
@@ -263,10 +251,7 @@ void GivePlayerRandoRewardSariaGift(GlobalContext* globalCtx, RandomizerCheck ch
 
         if ((!Flags_GetEventChkInf(0xC1) || (player->getItemId == getItemId && getItemId != GI_ICE_TRAP)) &&
             player != NULL && !Player_InBlockingCsMode(globalCtx, player)) {
-            if (getItemId == GI_ARCHIPELAGO_ITEM) {
-                SetArchipelagoCurrentCheck(check);
-            }
-            GiveItemWithoutActor(globalCtx, getItemId);
+            GiveItemWithoutActor(globalCtx, getItemId, check);
             Flags_SetEventChkInf(0xC1);
         }
     }

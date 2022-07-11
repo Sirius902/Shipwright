@@ -154,6 +154,8 @@ void EnSyatekiMan_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
     EnSyatekiMan* this = (EnSyatekiMan*)thisx;
 
+    this->check = RC_UNKNOWN_CHECK;
+
     osSyncPrintf("\n\n");
     // "Old man appeared!! Muhohohohohohohon"
     osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ 親父登場！！むほほほほほほほーん ☆☆☆☆☆ \n" VT_RST);
@@ -335,11 +337,9 @@ void EnSyatekiMan_EndGame(EnSyatekiMan* this, GlobalContext* globalCtx) {
                     this->tempGallery = this->actor.parent;
                     this->actor.parent = NULL;
                     if (!LINK_IS_ADULT) {
+                        this->check = RC_MARKET_SHOOTING_GALLERY_REWARD;
                         if(gSaveContext.n64ddFlag && !Flags_GetTreasure(globalCtx, 0x1E)) {
-                            this->getItemId = GetRandomizedItemIdFromKnownCheck(RC_MARKET_SHOOTING_GALLERY_REWARD, GI_BULLET_BAG_50);
-                            if (this->getItemId == GI_ARCHIPELAGO_ITEM) {
-                                SetArchipelagoCurrentCheck(RC_MARKET_SHOOTING_GALLERY_REWARD);
-                            }
+                            this->getItemId = GetRandomizedItemIdFromKnownCheck(this->check, GI_BULLET_BAG_50);
                             Flags_SetTreasure(globalCtx, 0x1E);
                         } else if (!gSaveContext.n64ddFlag && !(gSaveContext.itemGetInf[0] & 0x2000)) {
                             osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ Equip_Pachinko ☆☆☆☆☆ %d\n" VT_RST,
@@ -353,11 +353,9 @@ void EnSyatekiMan_EndGame(EnSyatekiMan* this, GlobalContext* globalCtx) {
                             this->getItemId = GI_RUPEE_PURPLE;
                         }
                     } else {
+                        this->check = RC_KAK_SHOOTING_GALLERY_REWARD;
                         if(gSaveContext.n64ddFlag && !Flags_GetTreasure(globalCtx, 0x1F)) {
-                            this->getItemId = GetRandomizedItemIdFromKnownCheck(RC_KAK_SHOOTING_GALLERY_REWARD, GI_QUIVER_50);
-                            if (this->getItemId == GI_ARCHIPELAGO_ITEM) {
-                                SetArchipelagoCurrentCheck(RC_KAK_SHOOTING_GALLERY_REWARD);
-                            }
+                            this->getItemId = GetRandomizedItemIdFromKnownCheck(this->check, GI_QUIVER_50);
                             Flags_SetTreasure(globalCtx, 0x1F);
                         } else if (!gSaveContext.n64ddFlag && !(gSaveContext.itemGetInf[0] & 0x4000)) {
                             osSyncPrintf(VT_FGCOL(GREEN) "☆☆☆☆☆ Equip_Bow ☆☆☆☆☆ %d\n" VT_RST,
@@ -377,7 +375,7 @@ void EnSyatekiMan_EndGame(EnSyatekiMan* this, GlobalContext* globalCtx) {
                             this->getItemId = GI_RUPEE_PURPLE;
                         }
                     }
-                    func_8002F434(&this->actor, globalCtx, this->getItemId, 2000.0f, 1000.0f);
+                    func_8002F434(&this->actor, globalCtx, this->getItemId, 2000.0f, 1000.0f, this->check);
                     this->actionFunc = EnSyatekiMan_GivePrize;
                     break;
                 case SYATEKI_RESULT_ALMOST:
@@ -406,7 +404,7 @@ void EnSyatekiMan_GivePrize(EnSyatekiMan* this, GlobalContext* globalCtx) {
     if (Actor_HasParent(&this->actor, globalCtx)) {
         this->actionFunc = EnSyatekiMan_FinishPrize;
     } else {
-        func_8002F434(&this->actor, globalCtx, this->getItemId, 2000.0f, 1000.0f);
+        func_8002F434(&this->actor, globalCtx, this->getItemId, 2000.0f, 1000.0f, this->check);
     }
 }
 

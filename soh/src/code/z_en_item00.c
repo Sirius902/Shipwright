@@ -508,13 +508,10 @@ void EnItem00_Init(Actor* thisx, GlobalContext* globalCtx) {
             break;
     }
 
+    this->check = GetCheckFromActor(globalCtx->sceneNum, this->actor.id, this->ogParams);
     if ((gSaveContext.n64ddFlag || getItemId != GI_NONE) && !Actor_HasParent(&this->actor, globalCtx)) {
         getItemId = GetRandomizedItemId(getItemId, this->actor.id, this->ogParams, globalCtx->sceneNum);
-        // ARCHIPELAGO_TODO: Figure out where to give archipelago item.
-        if (getItemId == GI_ARCHIPELAGO_ITEM) {
-            SetArchipelagoCurrentCheck(GetCheckFromActor(globalCtx->sceneNum, this->actor.id, this->ogParams));
-        }
-        func_8002F554(&this->actor, globalCtx, getItemId);
+        func_8002F554(&this->actor, globalCtx, getItemId, this->check);
     }
 
     EnItem00_SetupAction(this, func_8001E5C8);
@@ -672,7 +669,7 @@ void func_8001E5C8(EnItem00* this, GlobalContext* globalCtx) {
 
     if (this->getItemId != GI_NONE) {
         if (!Actor_HasParent(&this->actor, globalCtx)) {
-            func_8002F434(&this->actor, globalCtx, this->getItemId, 50.0f, 80.0f);
+            func_8002F434(&this->actor, globalCtx, this->getItemId, 50.0f, 80.0f, this->check);
             this->unk_15A++;
         } else {
             this->getItemId = GI_NONE;
@@ -886,12 +883,8 @@ void EnItem00_Update(Actor* thisx, GlobalContext* globalCtx) {
     if ((getItemId != GI_NONE) && !Actor_HasParent(&this->actor, globalCtx)) {
         if (gSaveContext.n64ddFlag) {
             getItemId = GetRandomizedItemId(getItemId, this->actor.id, this->ogParams, globalCtx->sceneNum);
-            // ARCHIPELAGO_TODO: Figure out where to give archipelago item.
-            if (getItemId == GI_ARCHIPELAGO_ITEM) {
-                SetArchipelagoCurrentCheck(GetCheckFromActor(globalCtx->sceneNum, this->actor.id, this->ogParams));
-            }
         }
-        func_8002F554(&this->actor, globalCtx, getItemId);
+        func_8002F554(&this->actor, globalCtx, getItemId, this->check);
     }
 
     switch (*params) {

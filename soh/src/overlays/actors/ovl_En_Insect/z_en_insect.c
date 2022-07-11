@@ -777,7 +777,7 @@ void EnInsect_Update(Actor* thisx, GlobalContext* globalCtx) {
 
             if (!(this->unk_314 & 8) && D_80A7DEB4 < 4 && EnInsect_InBottleRange(this, globalCtx) &&
                 // GI_MAX in this case allows the player to catch the actor in a bottle
-                func_8002F434(&this->actor, globalCtx, GI_MAX, 60.0f, 30.0f)) {
+                func_8002F434(&this->actor, globalCtx, GI_MAX, 60.0f, 30.0f, RC_UNKNOWN_CHECK)) {
                 D_80A7DEB4++;
             }
         }

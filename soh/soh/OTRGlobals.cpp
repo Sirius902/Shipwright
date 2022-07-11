@@ -1587,8 +1587,8 @@ extern "C" int CopyArchipelagoItemText(char* buffer, const int maxBufferSize) {
     return CopyStringToCharBuffer(itemText, buffer, maxBufferSize);
 }
 
-extern "C" void SetArchipelagoCurrentCheck(RandomizerCheck check) {
-    SetArchipelagoCurrentCheckImpl(check);
+extern "C" void SetArchipelagoCurrentCheck(RandomizerCheck check, GetItemID getItemId) {
+    SetArchipelagoCurrentCheckImpl(check, getItemId);
 }
 
 extern "C" void ClearArchipelagoCurrentCheck(void) {

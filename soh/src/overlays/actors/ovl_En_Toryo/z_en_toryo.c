@@ -313,7 +313,7 @@ void func_80B20768(EnToryo* this, GlobalContext* globalCtx) {
             this->actor.parent = NULL;
             this->unk_1E4 = 5;
         } else {
-            func_8002F434(&this->actor, globalCtx, GI_SWORD_BROKEN, 100.0f, 10.0f);
+            func_8002F434(&this->actor, globalCtx, GI_SWORD_BROKEN, 100.0f, 10.0f, RC_UNKNOWN_CHECK);
         }
         return;
     }

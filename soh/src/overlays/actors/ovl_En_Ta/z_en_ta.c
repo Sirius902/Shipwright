@@ -871,9 +871,9 @@ void func_80B15E80(EnTa* this, GlobalContext* globalCtx) {
         }
         this->unk_2E0 &= ~0x2;
     } else if (this->unk_2E0 & 2) {
-        func_8002F434(&this->actor, globalCtx, GI_MILK, 10000.0f, 50.0f);
+        func_8002F434(&this->actor, globalCtx, GI_MILK, 10000.0f, 50.0f, RC_UNKNOWN_CHECK);
     } else {
-        func_8002F434(&this->actor, globalCtx, GI_MILK_BOTTLE, 10000.0f, 50.0f);
+        func_8002F434(&this->actor, globalCtx, GI_MILK_BOTTLE, 10000.0f, 50.0f, RC_UNKNOWN_CHECK);
     }
     this->unk_2E0 |= 1;
 }
@@ -883,11 +883,9 @@ void func_80B15F54(EnTa* this, GlobalContext* globalCtx) {
         Message_CloseTextbox(globalCtx);
         this->unk_2E0 &= ~0x2;
         func_80B13AA0(this, func_80B15E80, func_80B16938);
-        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_LLR_TALONS_CHICKENS, GI_MILK_BOTTLE);
-        if (getItemId == GI_ARCHIPELAGO_ITEM) {
-            SetArchipelagoCurrentCheck(RC_LLR_TALONS_CHICKENS);
-        }
-        func_8002F434(&this->actor, globalCtx, gSaveContext.n64ddFlag ? getItemId : GI_MILK_BOTTLE, 10000.0f, 50.0f);
+        RandomizerCheck check = RC_LLR_TALONS_CHICKENS;
+        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_MILK_BOTTLE);
+        func_8002F434(&this->actor, globalCtx, gSaveContext.n64ddFlag ? getItemId : GI_MILK_BOTTLE, 10000.0f, 50.0f, check);
     }
 }
 
@@ -908,7 +906,7 @@ void func_80B15FE8(EnTa* this, GlobalContext* globalCtx) {
                         this->unk_2E0 |= 2;
                         func_80B13AA0(this, func_80B15E80, func_80B16938);
                         Rupees_ChangeBy(-30);
-                        func_8002F434(&this->actor, globalCtx, GI_MILK, 10000.0f, 50.0f);
+                        func_8002F434(&this->actor, globalCtx, GI_MILK, 10000.0f, 50.0f, RC_UNKNOWN_CHECK);
                         break;
                 }
                 break;
@@ -999,7 +997,7 @@ void func_80B1642C(EnTa* this, GlobalContext* globalCtx) {
             Message_CloseTextbox(globalCtx);
             this->unk_2E0 |= 2;
             func_80B13AA0(this, func_80B15E80, func_80B16938);
-            func_8002F434(&this->actor, globalCtx, GI_MILK, 10000.0f, 50.0f);
+            func_8002F434(&this->actor, globalCtx, GI_MILK, 10000.0f, 50.0f, RC_UNKNOWN_CHECK);
         } else {
             Message_ContinueTextbox(globalCtx, 0x208A);
             func_80B13AA0(this, func_80B15E28, func_80B16938);
