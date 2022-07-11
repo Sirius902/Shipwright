@@ -658,10 +658,15 @@ s16 func_80A70058(GlobalContext* globalCtx, Actor* thisx) {
                 case 0x709E:
                     gSaveContext.dogParams = 0;
                     break;
-                case 0x709F:
-                    func_80A6F7CC(this, globalCtx, (gSaveContext.infTable[25] & 2) ? GI_RUPEE_BLUE : gSaveContext.n64ddFlag ? GetRandomizedItemIdFromKnownCheck(RC_MARKET_LOST_DOG, GI_HEART_PIECE) : GI_HEART_PIECE);
+                case 0x709F: {
+                    GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_MARKET_LOST_DOG, GI_HEART_PIECE);
+                    if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                        SetArchipelagoCurrentCheck(RC_MARKET_LOST_DOG);
+                    }
+                    func_80A6F7CC(this, globalCtx, (gSaveContext.infTable[25] & 2) ? GI_RUPEE_BLUE : gSaveContext.n64ddFlag ? getItemId : GI_HEART_PIECE);
                     this->actionFunc = func_80A714C4;
                     break;
+                }
             }
             return 0;
         case TEXT_STATE_EVENT:

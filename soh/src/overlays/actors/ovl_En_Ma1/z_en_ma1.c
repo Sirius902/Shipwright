@@ -338,6 +338,9 @@ void func_80AA0EA0(EnMa1* this, GlobalContext* globalCtx) {
     } else {
         if (gSaveContext.n64ddFlag) {
             GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_HC_MALON_EGG, GI_WEIRD_EGG);
+            if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                SetArchipelagoCurrentCheck(RC_HC_MALON_EGG);
+            }
             func_8002F434(&this->actor, globalCtx, getItemId, 120.0f, 10.0f);
         } else {
             func_8002F434(&this->actor, globalCtx, GI_WEIRD_EGG, 120.0f, 10.0f);
@@ -364,6 +367,9 @@ void GivePlayerRandoRewardMalon(EnMa1* malon, GlobalContext* globalCtx, Randomiz
                (INV_CONTENT(ITEM_OCARINA_FAIRY) != ITEM_NONE || INV_CONTENT(ITEM_OCARINA_TIME) != ITEM_NONE) &&
                Actor_TextboxIsClosing(&malon->actor, globalCtx) &&
                (globalCtx->msgCtx.textId == 0x2049 || globalCtx->msgCtx.textId == 0x204A)) {
+        if (getItemId == GI_ARCHIPELAGO_ITEM) {
+            SetArchipelagoCurrentCheck(check);
+        }
         func_8002F434(&malon->actor, globalCtx, getItemId, 10000.0f, 100.0f);
     }
 }

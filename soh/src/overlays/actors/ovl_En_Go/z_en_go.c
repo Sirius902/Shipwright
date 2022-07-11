@@ -955,7 +955,11 @@ void EnGo_GetItem(EnGo* this, GlobalContext* globalCtx) {
         this->unk_20C = 0;
         if ((this->actor.params & 0xF0) == 0x90) {
             if (INV_CONTENT(ITEM_TRADE_ADULT) == ITEM_CLAIM_CHECK) {
-                getItemId = gSaveContext.n64ddFlag ? GetRandomizedItemIdFromKnownCheck(RC_DMT_TRADE_CLAIM_CHECK, GI_SWORD_BGS) : GI_SWORD_BGS;
+                GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_DMT_TRADE_CLAIM_CHECK, GI_SWORD_BGS);
+                if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                    SetArchipelagoCurrentCheck(RC_DMT_TRADE_CLAIM_CHECK);
+                }
+                getItemId = gSaveContext.n64ddFlag ? getItemId : GI_SWORD_BGS;
                 this->unk_20C = 1;
             }
             if (INV_CONTENT(ITEM_TRADE_ADULT) == ITEM_EYEDROPS) {

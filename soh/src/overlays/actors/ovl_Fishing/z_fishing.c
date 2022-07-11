@@ -5043,8 +5043,12 @@ void Fishing_HandleOwnerDialog(Fishing* this, GlobalContext* globalCtx) {
                             if (D_80B7E078 >= Fishing_GetMinimumRequiredScore()) {
                                 HIGH_SCORE(HS_FISHING) |= 0x400;
                                 sSinkingLureLocation = (u8)Rand_ZeroFloat(3.999f) + 1;
+                                GetItemID randoGetItemId = GetRandomizedItemIdFromKnownCheck(RC_LH_CHILD_FISHING, GI_HEART_PIECE);
+                                if (randoGetItemId == GI_ARCHIPELAGO_ITEM) {
+                                    SetArchipelagoCurrentCheck(RC_LH_CHILD_FISHING);
+                                }
                                 getItemId = gSaveContext.n64ddFlag ?
-                                                GetRandomizedItemIdFromKnownCheck(RC_LH_CHILD_FISHING, GI_HEART_PIECE) :
+                                                randoGetItemId :
                                                 GI_HEART_PIECE; 
                             }
                         }
@@ -5053,8 +5057,12 @@ void Fishing_HandleOwnerDialog(Fishing* this, GlobalContext* globalCtx) {
                             if (D_80B7E078 >= Fishing_GetMinimumRequiredScore()) {
                                 HIGH_SCORE(HS_FISHING) |= 0x800;
                                 sSinkingLureLocation = (u8)Rand_ZeroFloat(3.999f) + 1;
+                                GetItemID randoGetItemId = GetRandomizedItemIdFromKnownCheck(RC_LH_ADULT_FISHING, GI_SCALE_GOLD);
+                                if (randoGetItemId == GI_ARCHIPELAGO_ITEM) {
+                                    SetArchipelagoCurrentCheck(RC_LH_ADULT_FISHING);
+                                }
                                 getItemId = gSaveContext.n64ddFlag ?
-                                                GetRandomizedItemIdFromKnownCheck(RC_LH_ADULT_FISHING, GI_SCALE_GOLD) :
+                                                randoGetItemId :
                                                 GI_SCALE_GOLD; 
                             }
                         }
@@ -5129,9 +5137,11 @@ void Fishing_HandleOwnerDialog(Fishing* this, GlobalContext* globalCtx) {
                 if (!gSaveContext.n64ddFlag) {
                     func_8002F434(&this->actor, globalCtx, GI_SCALE_GOLD, 2000.0f, 1000.0f);
                 } else {
-                    func_8002F434(&this->actor, globalCtx,
-                                  GetRandomizedItemIdFromKnownCheck(RC_LH_ADULT_FISHING, GI_SCALE_GOLD), 2000.0f,
-                                  1000.0f);
+                    GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_LH_ADULT_FISHING, GI_SCALE_GOLD);
+                    if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                        SetArchipelagoCurrentCheck(RC_LH_ADULT_FISHING);
+                    }
+                    func_8002F434(&this->actor, globalCtx, getItemId, 2000.0f, 1000.0f);
                 }
             }
             break;

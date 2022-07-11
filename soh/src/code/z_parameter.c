@@ -1548,6 +1548,12 @@ u8 Item_Give(GlobalContext* globalCtx, u8 item) {
     s16 slot;
     s16 temp;
 
+    if (item == ITEM_ARCHIPELAGO_ITEM) {
+        GiveArchipelagoItem();
+        ClearArchipelagoCurrentCheck();
+        return ITEM_NONE;
+    }
+
     slot = SLOT(item);
     if (item >= ITEM_STICKS_5) {
         slot = SLOT(sExtraItemBases[item - ITEM_STICKS_5]);

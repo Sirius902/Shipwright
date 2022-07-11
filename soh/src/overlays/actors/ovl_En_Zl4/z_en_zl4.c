@@ -234,6 +234,9 @@ void GivePlayerRandoRewardZeldaChild(EnZl4* zelda, GlobalContext* globalCtx, Ran
     } else if (!Flags_GetTreasure(globalCtx, 0x1E) && !GetRandoSettingValue(RSK_SKIP_CHILD_ZELDA) && Actor_TextboxIsClosing(&zelda->actor, globalCtx) &&
                (globalCtx->msgCtx.textId == 0x703C || globalCtx->msgCtx.textId == 0x703D)) {
         GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_LETTER_ZELDA);
+        if (getItemId == GI_ARCHIPELAGO_ITEM) {
+            SetArchipelagoCurrentCheck(check);
+        }
         func_8002F434(&zelda->actor, globalCtx, getItemId, 10000.0f, 100.0f);
     } else if (Flags_GetTreasure(globalCtx, 0x1E) && !Player_InBlockingCsMode(globalCtx, GET_PLAYER(globalCtx))) {
         gSaveContext.unk_13EE = 0x32;

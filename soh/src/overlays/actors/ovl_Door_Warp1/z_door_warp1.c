@@ -468,6 +468,9 @@ void GivePlayerRandoReward(DoorWarp1* this, Player* player, GlobalContext* globa
         !Flags_GetTreasure(globalCtx, 0x1F)) {
         Flags_SetTreasure(globalCtx, 0x1F);
     } else if (!Flags_GetTreasure(globalCtx, 0x1F)) {
+        if (getItemId == GI_ARCHIPELAGO_ITEM) {
+            SetArchipelagoCurrentCheck(GetCheckFromActor(globalCtx->sceneNum, this->actor.id, this->actor.params));
+        }
         func_8002F434(&this->actor, globalCtx, getItemId, 10000.0f, 100.0f);
     } else if (!Player_InBlockingCsMode(globalCtx, GET_PLAYER(globalCtx))) {
         if (adult) {

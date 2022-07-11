@@ -905,6 +905,9 @@ void GivePlayerRandoRewardImpa(Actor* impa, GlobalContext* globalCtx, Randomizer
         !Flags_GetTreasure(globalCtx, 0x1F)) {
         Flags_SetTreasure(globalCtx, 0x1F);
     } else if (!Flags_GetTreasure(globalCtx, 0x1F) && !GetRandoSettingValue(RSK_SKIP_CHILD_ZELDA)) {
+        if (getItemId == GI_ARCHIPELAGO_ITEM) {
+            SetArchipelagoCurrentCheck(check);
+        }
         func_8002F434(impa, globalCtx, getItemId, 75.0f, 50.0f);
     } else if (!Player_InBlockingCsMode(globalCtx, GET_PLAYER(globalCtx))) {
         gSaveContext.eventChkInf[5] |= 0x200;

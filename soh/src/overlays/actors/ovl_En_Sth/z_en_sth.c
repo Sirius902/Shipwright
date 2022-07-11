@@ -244,21 +244,41 @@ void EnSth_GivePlayerItem(EnSth* this, GlobalContext* globalCtx) {
         switch (getItemId) {
             case GI_RUPEE_GOLD:
                 break;
-            case GI_WALLET_ADULT:
+            case GI_WALLET_ADULT: {
                 getItemId = GetRandomizedItemIdFromKnownCheck(RC_KAK_10_GOLD_SKULLTULA_REWARD, GI_WALLET_ADULT);
+                if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                    SetArchipelagoCurrentCheck(RC_KAK_10_GOLD_SKULLTULA_REWARD);
+                }
                 break;
-            case GI_STONE_OF_AGONY:
+            }
+            case GI_STONE_OF_AGONY: {
                 getItemId = GetRandomizedItemIdFromKnownCheck(RC_KAK_20_GOLD_SKULLTULA_REWARD, GI_STONE_OF_AGONY);
+                if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                    SetArchipelagoCurrentCheck(RC_KAK_20_GOLD_SKULLTULA_REWARD);
+                }
                 break;
-            case GI_WALLET_GIANT:
+            }
+            case GI_WALLET_GIANT: {
                 getItemId = GetRandomizedItemIdFromKnownCheck(RC_KAK_30_GOLD_SKULLTULA_REWARD, GI_WALLET_GIANT);
+                if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                    SetArchipelagoCurrentCheck(RC_KAK_30_GOLD_SKULLTULA_REWARD);
+                }
                 break;
-            case GI_BOMBCHUS_10:
+            }
+            case GI_BOMBCHUS_10: {
                 getItemId = GetRandomizedItemIdFromKnownCheck(RC_KAK_40_GOLD_SKULLTULA_REWARD, GI_BOMBCHUS_10);
+                if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                    SetArchipelagoCurrentCheck(RC_KAK_40_GOLD_SKULLTULA_REWARD);
+                }
                 break;
-            case GI_HEART_PIECE:
+            }
+            case GI_HEART_PIECE: {
                 getItemId = GetRandomizedItemIdFromKnownCheck(RC_KAK_50_GOLD_SKULLTULA_REWARD, GI_HEART_PIECE);
+                if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                    SetArchipelagoCurrentCheck(RC_KAK_50_GOLD_SKULLTULA_REWARD);
+                }
                 break;
+            }
         }
     } else {
         switch (this->actor.params) {

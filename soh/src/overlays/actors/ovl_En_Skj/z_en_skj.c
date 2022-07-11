@@ -1035,7 +1035,11 @@ void EnSkj_SariaSongTalk(EnSkj* this, GlobalContext* globalCtx) {
             EnSkj_SetupWaitInRange(this);
         } else {
             func_80AFFE24(this);
-            func_8002F434(&this->actor, globalCtx, gSaveContext.n64ddFlag ? GetRandomizedItemIdFromKnownCheck(RC_LW_SKULL_KID, GI_HEART_PIECE) : GI_HEART_PIECE, EnSkj_GetItemXzRange(this),
+            GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_LW_SKULL_KID, GI_HEART_PIECE);
+            if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                SetArchipelagoCurrentCheck(RC_LW_SKULL_KID);
+            }
+            func_8002F434(&this->actor, globalCtx, gSaveContext.n64ddFlag ? getItemId : GI_HEART_PIECE, EnSkj_GetItemXzRange(this),
                           EnSkj_GetItemYRange(this));
         }
     }
@@ -1050,7 +1054,11 @@ void func_80AFFE44(EnSkj* this, GlobalContext* globalCtx) {
         this->actor.parent = NULL;
         EnSkj_SetupPostSariasSong(this);
     } else {
-        func_8002F434(&this->actor, globalCtx, gSaveContext.n64ddFlag ? GetRandomizedItemIdFromKnownCheck(RC_LW_SKULL_KID, GI_HEART_PIECE) : GI_HEART_PIECE, EnSkj_GetItemXzRange(this), EnSkj_GetItemYRange(this));
+        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_LW_SKULL_KID, GI_HEART_PIECE);
+        if (getItemId == GI_ARCHIPELAGO_ITEM) {
+            SetArchipelagoCurrentCheck(RC_LW_SKULL_KID);
+        }
+        func_8002F434(&this->actor, globalCtx, gSaveContext.n64ddFlag ? getItemId : GI_HEART_PIECE, EnSkj_GetItemXzRange(this), EnSkj_GetItemYRange(this));
     }
 }
 
@@ -1527,9 +1535,13 @@ void EnSkj_WonOcarinaMiniGame(EnSkj* this, GlobalContext* globalCtx) {
 
 void EnSkj_WaitToGiveReward(EnSkj* this, GlobalContext* globalCtx) {
     if ((Message_GetState(&globalCtx->msgCtx) == TEXT_STATE_DONE) && Message_ShouldAdvance(globalCtx)) {
+        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_LW_OCARINA_MEMORY_GAME, GI_HEART_PIECE);
+        if (getItemId == GI_ARCHIPELAGO_ITEM) {
+            SetArchipelagoCurrentCheck(RC_LW_OCARINA_MEMORY_GAME);
+        }
         func_8002F434(&this->actor, globalCtx,
                       gSaveContext.n64ddFlag && gSaveContext.ocarinaGameRoundNum != 3
-                          ? GetRandomizedItemIdFromKnownCheck(RC_LW_OCARINA_MEMORY_GAME, GI_HEART_PIECE)
+                          ? getItemId
                           : sOcarinaGameRewards[gSaveContext.ocarinaGameRoundNum],
                       26.0f, 26.0f);
 
@@ -1542,9 +1554,13 @@ void EnSkj_GiveOcarinaGameReward(EnSkj* this, GlobalContext* globalCtx) {
         this->actor.parent = NULL;
         this->actionFunc = EnSkj_FinishOcarinaGameRound;
     } else {
+        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_LW_OCARINA_MEMORY_GAME, GI_HEART_PIECE);
+        if (getItemId == GI_ARCHIPELAGO_ITEM) {
+            SetArchipelagoCurrentCheck(RC_LW_OCARINA_MEMORY_GAME);
+        }
         func_8002F434(&this->actor, globalCtx,
                       gSaveContext.n64ddFlag && gSaveContext.ocarinaGameRoundNum != 3
-                          ? GetRandomizedItemIdFromKnownCheck(RC_LW_OCARINA_MEMORY_GAME, GI_HEART_PIECE)
+                          ? getItemId
                           : sOcarinaGameRewards[gSaveContext.ocarinaGameRoundNum],
                       26.0f, 26.0f);
     }

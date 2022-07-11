@@ -425,6 +425,9 @@ void EnExItem_TargetPrizeGive(EnExItem* this, GlobalContext* globalCtx) {
     } else {
         if (gSaveContext.n64ddFlag) {
             getItemId = GetRandomizedItemIdFromKnownCheck(RC_LW_TARGET_IN_WOODS, GI_BULLET_BAG_50);
+            if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                SetArchipelagoCurrentCheck(RC_LW_TARGET_IN_WOODS);
+            }
         } else {
             getItemId = (CUR_UPG_VALUE(UPG_BULLET_BAG) == 2) ? GI_BULLET_BAG_50 : GI_BULLET_BAG_40;
         }

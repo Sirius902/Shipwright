@@ -535,12 +535,18 @@ void EnGe1_WaitTillItemGiven_Archery(EnGe1* this, GlobalContext* globalCtx) {
             } else {
                 getItemId = GetRandomizedItemIdFromKnownCheck(
                     RC_GF_HBA_1500_POINTS, CUR_UPG_VALUE(UPG_QUIVER) == 1 ? GI_QUIVER_40 : GI_QUIVER_50);
+                if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                    SetArchipelagoCurrentCheck(RC_GF_HBA_1500_POINTS);
+                }
             }
         } else {
             if (!gSaveContext.n64ddFlag) {
                 getItemId = GI_HEART_PIECE;
             } else {
                 getItemId = GetRandomizedItemIdFromKnownCheck(RC_GF_HBA_1000_POINTS, GI_HEART_PIECE);
+                if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                    SetArchipelagoCurrentCheck(RC_GF_HBA_1000_POINTS);
+                }
             }
         }
         func_8002F434(&this->actor, globalCtx, getItemId, 10000.0f, 50.0f);

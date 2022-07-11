@@ -510,6 +510,10 @@ void EnItem00_Init(Actor* thisx, GlobalContext* globalCtx) {
 
     if ((gSaveContext.n64ddFlag || getItemId != GI_NONE) && !Actor_HasParent(&this->actor, globalCtx)) {
         getItemId = GetRandomizedItemId(getItemId, this->actor.id, this->ogParams, globalCtx->sceneNum);
+        // ARCHIPELAGO_TODO: Figure out where to give archipelago item.
+        if (getItemId == GI_ARCHIPELAGO_ITEM) {
+            SetArchipelagoCurrentCheck(GetCheckFromActor(globalCtx->sceneNum, this->actor.id, this->ogParams));
+        }
         func_8002F554(&this->actor, globalCtx, getItemId);
     }
 
@@ -882,6 +886,10 @@ void EnItem00_Update(Actor* thisx, GlobalContext* globalCtx) {
     if ((getItemId != GI_NONE) && !Actor_HasParent(&this->actor, globalCtx)) {
         if (gSaveContext.n64ddFlag) {
             getItemId = GetRandomizedItemId(getItemId, this->actor.id, this->ogParams, globalCtx->sceneNum);
+            // ARCHIPELAGO_TODO: Figure out where to give archipelago item.
+            if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                SetArchipelagoCurrentCheck(GetCheckFromActor(globalCtx->sceneNum, this->actor.id, this->ogParams));
+            }
         }
         func_8002F554(&this->actor, globalCtx, getItemId);
     }

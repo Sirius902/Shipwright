@@ -155,6 +155,9 @@ void GivePlayerRandoRewardSongOfStorms(EnFu* windmillGuy, GlobalContext* globalC
         windmillGuy->actionFunc = func_80A1DBD4;
     } else if (!Flags_GetTreasure(globalCtx, 0x1F)) {
         GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_SONG_OF_STORMS);
+        if (getItemId == GI_ARCHIPELAGO_ITEM) {
+            SetArchipelagoCurrentCheck(check);
+        }
         func_8002F434(&windmillGuy->actor, globalCtx, getItemId, 10000.0f, 100.0f);
     }
 }

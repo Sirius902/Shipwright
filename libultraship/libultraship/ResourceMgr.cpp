@@ -19,7 +19,7 @@ namespace Ship {
 	}
 
 	ResourceMgr::~ResourceMgr() {
-		SPDLOG_INFO("destruct ResourceMgr");
+		// SPDLOG_INFO("destruct ResourceMgr");
 		Stop();
 
 		FileCache.clear();
@@ -50,11 +50,11 @@ namespace Ship {
 			ResourceLoadThread->join();
 
 			if (!FileLoadQueue.empty()) {
-				SPDLOG_INFO("Resource manager stopped, but has {} Files left to load.", FileLoadQueue.size());
+				// SPDLOG_INFO("Resource manager stopped, but has {} Files left to load.", FileLoadQueue.size());
 			}
 
 			if (!ResourceLoadQueue.empty()) {
-				SPDLOG_INFO("Resource manager stopped, but has {} Resources left to load.", FileLoadQueue.size());
+				// SPDLOG_INFO("Resource manager stopped, but has {} Resources left to load.", FileLoadQueue.size());
 			}
 		}
 	}
@@ -69,7 +69,7 @@ namespace Ship {
 	}
 
 	void ResourceMgr::LoadFileThread() {
-		SPDLOG_INFO("Resource Manager LoadFileThread started");
+		// SPDLOG_INFO("Resource Manager LoadFileThread started");
 
 		while (true) {
 			std::unique_lock<std::mutex> Lock(FileLoadMutex);
@@ -95,16 +95,16 @@ namespace Ship {
 
 			//Lock.unlock();
 
-			SPDLOG_DEBUG("Loaded File {} on ResourceMgr thread", ToLoad->path);
+			// SPDLOG_DEBUG("Loaded File {} on ResourceMgr thread", ToLoad->path);
 
 			ToLoad->FileLoadNotifier.notify_all();
 		}
 
-		SPDLOG_INFO("Resource Manager LoadFileThread ended");
+		// SPDLOG_INFO("Resource Manager LoadFileThread ended");
 	}
 
 	void ResourceMgr::LoadResourceThread() {
-		SPDLOG_INFO("Resource Manager LoadResourceThread started");
+		// SPDLOG_INFO("Resource Manager LoadResourceThread started");
 
 		while (true) {
 			std::unique_lock<std::mutex> ResLock(ResourceLoadMutex);
@@ -146,7 +146,7 @@ namespace Ship {
 						ToLoad->resource = Res;
 						ResourceCache[Res->file->path] = Res;
 
-						SPDLOG_DEBUG("Loaded Resource {} on ResourceMgr thread", ToLoad->file->path);
+						// SPDLOG_DEBUG("Loaded Resource {} on ResourceMgr thread", ToLoad->file->path);
 
 						// Disabled for now because it can cause random crashes
 						//FileCache[Res->File->path] = nullptr;
@@ -157,7 +157,7 @@ namespace Ship {
 						ToLoad->bHasResourceLoaded = false;
 						ToLoad->resource = nullptr;
 
-						SPDLOG_ERROR("Resource load FAILED {} on ResourceMgr thread", ToLoad->file->path);
+						// SPDLOG_ERROR("Resource load FAILED {} on ResourceMgr thread", ToLoad->file->path);
 					}
 
 					//ResLock.lock();
@@ -173,7 +173,7 @@ namespace Ship {
 			ToLoad->resourceLoadNotifier.notify_all();
 		}
 
-		SPDLOG_INFO("Resource Manager LoadResourceThread ended");
+		// SPDLOG_INFO("Resource Manager LoadResourceThread ended");
 	}
 
 	uint32_t ResourceMgr::GetGameVersion()
@@ -191,7 +191,7 @@ namespace Ship {
 		// File NOT already loaded...?
 		auto fileCacheFind = FileCache.find(FilePath);
 		if (fileCacheFind == FileCache.end()) {
-			SPDLOG_TRACE("Cache miss on File load: {}", FilePath.c_str());
+			// SPDLOG_TRACE("Cache miss on File load: {}", FilePath.c_str());
 			std::shared_ptr<File> ToLoad = std::make_shared<File>();
 			ToLoad->path = FilePath;
 
@@ -254,7 +254,7 @@ namespace Ship {
 		auto resCacheFind = ResourceCache.find(FilePath);
 		if (resCacheFind == ResourceCache.end() || resCacheFind->second->isDirty/* || !FileData->bIsLoaded*/) {
 			if (resCacheFind == ResourceCache.end()) {
-				SPDLOG_TRACE("Cache miss on Resource load: {}", FilePath);
+				// SPDLOG_TRACE("Cache miss on Resource load: {}", FilePath);
 			}
 
 			std::shared_ptr<ResourcePromise> Promise = std::make_shared<ResourcePromise>();

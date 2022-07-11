@@ -134,6 +134,9 @@ void func_80B85824(ItemEtcetera* this, GlobalContext* globalCtx) {
     } else {
         if (gSaveContext.n64ddFlag) {
             s32 getItemId = GetRandomizedItemIdFromKnownCheck(RC_LH_SUN, GI_ARROW_FIRE);
+            if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                SetArchipelagoCurrentCheck(RC_LH_SUN);
+            }
             func_8002F434(&this->actor, globalCtx, getItemId, 30.0f, 50.0f);
         } else {
             func_8002F434(&this->actor, globalCtx, this->getItemId, 30.0f, 50.0f);
@@ -157,6 +160,9 @@ void func_80B858B4(ItemEtcetera* this, GlobalContext* globalCtx) {
 
         if (gSaveContext.n64ddFlag) {
             s32 getItemId = GetRandomizedItemIdFromKnownCheck(RC_LH_UNDERWATER_ITEM, GI_LETTER_RUTO);
+            if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                SetArchipelagoCurrentCheck(RC_LH_UNDERWATER_ITEM);
+            }
             func_8002F434(&this->actor, globalCtx, getItemId, 30.0f, 50.0f);
         } else {
             func_8002F434(&this->actor, globalCtx, this->getItemId, 30.0f, 50.0f);

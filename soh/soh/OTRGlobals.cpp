@@ -1586,3 +1586,15 @@ extern "C" int CopyArchipelagoItemText(char* buffer, const int maxBufferSize) {
     const std::string& itemText = ArchipelagoItemText();
     return CopyStringToCharBuffer(itemText, buffer, maxBufferSize);
 }
+
+extern "C" void SetArchipelagoCurrentCheck(RandomizerCheck check) {
+    SetArchipelagoCurrentCheckImpl(check);
+}
+
+extern "C" void ClearArchipelagoCurrentCheck(void) {
+    ClearArchipelagoCurrentCheckImpl();
+}
+
+extern "C" void GiveArchipelagoItem(void) {
+    GiveArchipelagoItemImpl();
+}

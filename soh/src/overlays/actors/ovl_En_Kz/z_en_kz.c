@@ -465,9 +465,15 @@ void EnKz_SetupGetItem(EnKz* this, GlobalContext* globalCtx) {
         if (gSaveContext.n64ddFlag) {
             if (this->isTrading) {
                 getItemId = GetRandomizedItemIdFromKnownCheck(RC_ZD_TRADE_PRESCRIPTION, GI_FROG);
+                if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                    SetArchipelagoCurrentCheck(RC_ZD_TRADE_PRESCRIPTION);
+                }
                 Flags_SetTreasure(globalCtx, 0x1F);
             } else {
                 getItemId = GetRandomizedItemIdFromKnownCheck(RC_ZD_KING_ZORA_THAWED, GI_TUNIC_ZORA);
+                if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                    SetArchipelagoCurrentCheck(RC_ZD_KING_ZORA_THAWED);
+                }
             }
         } else {
             getItemId = this->isTrading ? GI_FROG : GI_TUNIC_ZORA;

@@ -189,9 +189,14 @@ void ItemOcarina_WaitInWater(ItemOcarina* this, GlobalContext* globalCtx) {
         this->actionFunc = ItemOcarina_StartSoTCutscene;
         this->actor.draw = NULL;
     } else {
+        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_HF_OCARINA_OF_TIME_ITEM, GI_OCARINA_OOT);
+        if (getItemId == GI_ARCHIPELAGO_ITEM) {
+            SetArchipelagoCurrentCheck(RC_HF_OCARINA_OF_TIME_ITEM);
+        }
+
         func_8002F434(&this->actor, globalCtx,
                       gSaveContext.n64ddFlag
-                          ? GetRandomizedItemIdFromKnownCheck(RC_HF_OCARINA_OF_TIME_ITEM, GI_OCARINA_OOT)
+                          ? getItemId
                           : GI_OCARINA_OOT,
                       30.0f, 50.0f);
 

@@ -343,6 +343,9 @@ s16 EnGo2_GetStateGoronCityRollingBig(GlobalContext* globalCtx, EnGo2* this) {
                         bombBagUpgrade = CUR_CAPACITY(UPG_BOMB_BAG) == 30 ? GI_BOMB_BAG_40 : GI_BOMB_BAG_30;    
                     } else {
                         bombBagUpgrade = GetRandomizedItemIdFromKnownCheck(RC_GC_ROLLING_GORON_AS_CHILD, GI_BOMB_BAG_40);
+                        if (bombBagUpgrade == GI_ARCHIPELAGO_ITEM) {
+                            SetArchipelagoCurrentCheck(RC_GC_ROLLING_GORON_AS_CHILD);
+                        }
                     }
                     EnGo2_GetItem(this, globalCtx, bombBagUpgrade);
                     Message_CloseTextbox(globalCtx);
@@ -538,7 +541,12 @@ s16 EnGo2_GetStateGoronCityLink(GlobalContext* globalCtx, EnGo2* this) {
                 }
                 
                 gSaveContext.infTable[16] |= 0x200;
-                EnGo2_GetItem(this, globalCtx, GetRandomizedItemIdFromKnownCheck(RC_GC_ROLLING_GORON_AS_ADULT, GI_TUNIC_GORON));
+
+                GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_GC_ROLLING_GORON_AS_ADULT, GI_TUNIC_GORON);
+                if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                    SetArchipelagoCurrentCheck(RC_GC_ROLLING_GORON_AS_ADULT);
+                }
+                EnGo2_GetItem(this, globalCtx, getItemId);
                 this->actionFunc = EnGo2_SetupGetItem;
                 Flags_SetTreasure(globalCtx, 0x1F);
                 return 2;
@@ -617,7 +625,11 @@ s16 EnGo2_GetStateGoronDmtBiggoron(GlobalContext* globalCtx, EnGo2* this) {
                         return 0;
                     }
 
-                    EnGo2_GetItem(this, globalCtx, GetRandomizedItemIdFromKnownCheck(RC_DMT_TRADE_CLAIM_CHECK, GI_SWORD_BGS));
+                    GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_DMT_TRADE_CLAIM_CHECK, GI_SWORD_BGS);
+                    if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                        SetArchipelagoCurrentCheck(RC_DMT_TRADE_CLAIM_CHECK);
+                    }
+                    EnGo2_GetItem(this, globalCtx, getItemId);
                     Flags_SetTreasure(globalCtx, 0x1F);
                 } else {
                     EnGo2_GetItem(this, globalCtx, GI_SWORD_BGS);

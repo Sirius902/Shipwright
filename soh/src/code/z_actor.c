@@ -1978,6 +1978,7 @@ s32 GiveItemWithoutActor(GlobalContext* globalCtx, s32 getItemId) {
         if (((player->heldActor != NULL) && (getItemId > GI_NONE) && (getItemId < GI_MAX)) ||
             (!(player->stateFlags1 & 0x20000800))) {
             if ((getItemId != GI_NONE)) {
+                // ARCHIPELAGO_TODO: Set global check and give item in Item_Give
                 player->getItemId = getItemId;
                 player->interactRangeActor = &player->actor;
                 player->getItemDirection = player->actor.shape.rot.y;
@@ -2001,6 +2002,7 @@ s32 func_8002F434(Actor* actor, GlobalContext* globalCtx, s32 getItemId, f32 xzR
                 s32 absYawDiff = ABS(yawDiff);
 
                 if ((getItemId != GI_NONE) || (player->getItemDirection < absYawDiff)) {
+                    // ARCHIPELAGO_TODO: Set global check and give item in Item_Give
                     player->getItemId = getItemId;
                     player->interactRangeActor = actor;
                     player->getItemDirection = absYawDiff;

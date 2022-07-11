@@ -139,13 +139,21 @@ void EnDntDemo_Judge(EnDntDemo* this, GlobalContext* globalCtx) {
             switch (Player_GetMask(globalCtx)) {
                 case PLAYER_MASK_SKULL:
                     if (!Flags_GetTreasure(globalCtx, 0x1F)) {
-                        GiveItemWithoutActor(globalCtx, GetRandomizedItemIdFromKnownCheck(RC_DEKU_THEATER_SKULL_MASK, GI_STICK_UPGRADE_30));
+                        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_DEKU_THEATER_SKULL_MASK, GI_STICK_UPGRADE_30);
+                        if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                            SetArchipelagoCurrentCheck(RC_DEKU_THEATER_SKULL_MASK);
+                        }
+                        GiveItemWithoutActor(globalCtx, getItemId);
                         Flags_SetTreasure(globalCtx, 0x1F);
                     }
                     break;
                 case PLAYER_MASK_TRUTH:
                     if (!Flags_GetTreasure(globalCtx, 0x1E)) {
-                        GiveItemWithoutActor(globalCtx, GetRandomizedItemIdFromKnownCheck(RC_DEKU_THEATER_MASK_OF_TRUTH, GI_NUT_UPGRADE_40));
+                        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_DEKU_THEATER_MASK_OF_TRUTH, GI_NUT_UPGRADE_40);
+                        if (getItemId == GI_ARCHIPELAGO_ITEM) {
+                            SetArchipelagoCurrentCheck(RC_DEKU_THEATER_MASK_OF_TRUTH);
+                        }
+                        GiveItemWithoutActor(globalCtx, getItemId);
                         Flags_SetTreasure(globalCtx, 0x1E);
                     }
                     break;

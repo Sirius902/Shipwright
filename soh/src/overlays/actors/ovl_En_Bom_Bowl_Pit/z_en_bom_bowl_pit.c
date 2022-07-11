@@ -187,13 +187,22 @@ void EnBomBowlPit_GivePrize(EnBomBowlPit* this, GlobalContext* globalCtx) {
             case EXITEM_BOMB_BAG_BOWLING:
                 this->getItemId =
                     GetRandomizedItemIdFromKnownCheck(RC_MARKET_BOMBCHU_BOWLING_FIRST_PRIZE, GI_BOMB_BAG_20);
+                if (this->getItemId == GI_ARCHIPELAGO_ITEM) {
+                    SetArchipelagoCurrentCheck(RC_MARKET_BOMBCHU_BOWLING_FIRST_PRIZE);
+                }
                 break;
             case EXITEM_HEART_PIECE_BOWLING:
                 this->getItemId =
                     GetRandomizedItemIdFromKnownCheck(RC_MARKET_BOMBCHU_BOWLING_SECOND_PRIZE, GI_HEART_PIECE);
+                if (this->getItemId == GI_ARCHIPELAGO_ITEM) {
+                    SetArchipelagoCurrentCheck(RC_MARKET_BOMBCHU_BOWLING_SECOND_PRIZE);
+                }
                 break;
             case EXITEM_BOMBCHUS_BOWLING:
                 this->getItemId = GetRandomizedItemIdFromKnownCheck(RC_MARKET_BOMBCHU_BOWLING_BOMBCHUS, GI_BOMBCHUS_10);
+                if (this->getItemId == GI_ARCHIPELAGO_ITEM) {
+                    SetArchipelagoCurrentCheck(RC_MARKET_BOMBCHU_BOWLING_BOMBCHUS);
+                }
                 break;
         }
     }
