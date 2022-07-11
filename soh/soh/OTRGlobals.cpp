@@ -37,6 +37,7 @@
 #include "Enhancements/debugconsole.h"
 #include "Enhancements/debugger/debugger.h"
 #include "Enhancements/randomizer/randomizer.h"
+#include "Enhancements/randomizer/archipelago/archipelago.h"
 #include <soh/Enhancements/randomizer/randomizer_item_tracker.h>
 #include "Enhancements/n64_weird_frame_data.inc"
 #include "soh/frame_interpolation.h"
@@ -1579,4 +1580,9 @@ extern "C" s32 GetRandomizedItemId(GetItemID ogId, s16 actorId, s16 actorParams,
 
 extern "C" s32 GetRandomizedItemIdFromKnownCheck(RandomizerCheck randomizerCheck, GetItemID ogId) {
     return OTRGlobals::Instance->gRandomizer->GetRandomizedItemIdFromKnownCheck(randomizerCheck, ogId);
+}
+
+extern "C" int CopyArchipelagoItemText(char* buffer, const int maxBufferSize) {
+    const std::string& itemText = ArchipelagoItemText();
+    return CopyStringToCharBuffer(itemText, buffer, maxBufferSize);
 }

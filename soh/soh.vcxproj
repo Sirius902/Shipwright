@@ -179,6 +179,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\archipelago.cpp" />
     <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\wswrap\src\wswrap.cpp" />
     <ClCompile Include="soh\Enhancements\cosmetics\CosmeticsEditor.cpp" />
     <ClCompile Include="soh\Enhancements\debugger\actorViewer.cpp" />

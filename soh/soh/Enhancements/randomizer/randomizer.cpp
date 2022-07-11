@@ -993,6 +993,7 @@ std::unordered_map<s16, s16> itemIdToModel = { { GI_NONE, GID_MAXIMUM },
                                                { GI_SINGLE_MAGIC, GID_MAGIC_SMALL },
                                                { GI_DOUBLE_MAGIC, GID_MAGIC_LARGE },
                                                { GI_ICE_TRAP, GID_RUPEE_GOLD },
+                                               { GI_ARCHIPELAGO_ITEM, GID_LETTER_ZELDA },
                                                { GI_ICE_TRAP, GID_MAXIMUM },
                                                { GI_TEXT_0, GID_MAXIMUM } };
 
@@ -2227,6 +2228,9 @@ GetItemID Randomizer::GetItemFromGet(RandomizerGet randoGet, GetItemID ogItemId)
             return GI_NOCTURNE_OF_SHADOW;
         case RG_PRELUDE_OF_LIGHT:
             return GI_PRELUDE_OF_LIGHT;
+
+        case RG_ARCHIPELAGO_ITEM:
+            return GI_ARCHIPELAGO_ITEM;
 
         // todo implement dungeon-specific maps/compasses
         case RG_DEKU_TREE_MAP:

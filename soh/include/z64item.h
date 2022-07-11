@@ -253,6 +253,7 @@ typedef enum {
     /* 0xA2 */ ITEM_BOTTLE_WITH_BUGS,
     /* 0xA3 */ ITEM_BOTTLE_WITH_POE,
     /* 0xA4 */ ITEM_BOTTLE_WITH_BIG_POE,
+    ITEM_ARCHIPELAGO_ITEM,
     /* 0xFC */ ITEM_LAST_USED = 0xFC,
     /* 0xFE */ ITEM_NONE_FE = 0xFE,
     /* 0xFF */ ITEM_NONE = 0xFF
@@ -428,6 +429,8 @@ typedef enum {
     GI_BOTTLE_WITH_BUGS,
     GI_BOTTLE_WITH_POE,
     GI_BOTTLE_WITH_BIG_POE,
+
+    GI_ARCHIPELAGO_ITEM,
 
     /* 0x84 */ GI_MAX
 } GetItemID;

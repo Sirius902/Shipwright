@@ -7,6 +7,7 @@
 #include "textures/parameter_static/parameter_static.h"
 #include "textures/message_static/message_static.h"
 #include "textures/message_texture_static/message_texture_static.h"
+#include "z64item.h"
 
 s16 sTextFade = false; // original name: key_off_flag ?
 
@@ -1735,6 +1736,8 @@ void Message_OpenText(GlobalContext* globalCtx, u16 textId) {
             } else {
                 msgCtx->msgLength = font->msgLength = CopyGanonHintText(font->msgBuf, sizeof(font->msgBuf));
             }
+        } else if (GET_PLAYER(globalCtx)->getItemId == GI_ARCHIPELAGO_ITEM && textId == 0x4F) {
+            msgCtx->msgLength = font->msgLength = CopyArchipelagoItemText(font->msgBuf, sizeof(font->msgBuf));
         } else {
             msgCtx->msgLength = font->msgLength;
             char* src = (uintptr_t)font->msgOffset;
