@@ -1056,6 +1056,8 @@ namespace SohImGui {
                     Tooltip("Allows the cursor on the pause menu to be over any slot\nSimilar to Rando and Spaceworld 97");
                     EnhancementCheckbox("Count Golden Skulltulas", "gInjectSkulltulaCount");
                     Tooltip("Injects Golden Skulltula total count in pickup messages");
+                    EnhancementCheckbox("Pull grave during the day", "gDayGravePull");
+                    Tooltip("Allows graves to be pulled when child during the day");
                     ImGui::EndMenu();
                 }
 
@@ -1269,7 +1271,7 @@ namespace SohImGui {
                 if (ImGui::BeginMenu(category.first.c_str())) {
                     for (const std::string& name : category.second) {
                         std::string varName(name);
-                        varName.erase(std::ranges::remove_if(varName, isspace).begin(), varName.end());
+                        varName.erase(std::remove_if(varName.begin(), varName.end(), [](unsigned char x) { return std::isspace(x); }), varName.end());
                         std::string toggleName = "g" + varName + "Enabled";
 
                         EnhancementCheckbox(name.c_str(), toggleName.c_str());
