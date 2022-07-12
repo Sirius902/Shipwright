@@ -239,57 +239,47 @@ void EnSth_ParentRewardObtainedWait(EnSth* this, GlobalContext* globalCtx) {
 
 void EnSth_GivePlayerItem(EnSth* this, GlobalContext* globalCtx) {
     u16 getItemId = sGetItemIds[this->actor.params];
-    
+
     RandomizerCheck check = RC_UNKNOWN_CHECK;
     switch (getItemId) {
         case GI_RUPEE_GOLD:
             break;
-        case GI_WALLET_ADULT: {
+        case GI_WALLET_ADULT:
             check = RC_KAK_10_GOLD_SKULLTULA_REWARD;
             break;
-        }
-        case GI_STONE_OF_AGONY: {
+        case GI_STONE_OF_AGONY:
             check = RC_KAK_20_GOLD_SKULLTULA_REWARD;
             break;
-        }
-        case GI_WALLET_GIANT: {
+        case GI_WALLET_GIANT:
             check = RC_KAK_30_GOLD_SKULLTULA_REWARD;
             break;
-        }
-        case GI_BOMBCHUS_10: {
+        case GI_BOMBCHUS_10:
             check = RC_KAK_40_GOLD_SKULLTULA_REWARD;
             break;
-        }
-        case GI_HEART_PIECE: {
+        case GI_HEART_PIECE:
             check = RC_KAK_50_GOLD_SKULLTULA_REWARD;
             break;
-        }
     }
 
     if (gSaveContext.n64ddFlag) {
         switch (getItemId) {
             case GI_RUPEE_GOLD:
                 break;
-            case GI_WALLET_ADULT: {
-                getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_WALLET_ADULT);
+            case GI_WALLET_ADULT:
+                getItemId = GetRandomizedItemIdFromKnownCheck(RC_KAK_10_GOLD_SKULLTULA_REWARD, GI_WALLET_ADULT);
                 break;
-            }
-            case GI_STONE_OF_AGONY: {
-                getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_STONE_OF_AGONY);
+            case GI_STONE_OF_AGONY:
+                getItemId = GetRandomizedItemIdFromKnownCheck(RC_KAK_20_GOLD_SKULLTULA_REWARD, GI_STONE_OF_AGONY);
                 break;
-            }
-            case GI_WALLET_GIANT: {
-                getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_WALLET_GIANT);
+            case GI_WALLET_GIANT:
+                getItemId = GetRandomizedItemIdFromKnownCheck(RC_KAK_30_GOLD_SKULLTULA_REWARD, GI_WALLET_GIANT);
                 break;
-            }
-            case GI_BOMBCHUS_10: {
-                getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_BOMBCHUS_10);
+            case GI_BOMBCHUS_10:
+                getItemId = GetRandomizedItemIdFromKnownCheck(RC_KAK_40_GOLD_SKULLTULA_REWARD, GI_BOMBCHUS_10);
                 break;
-            }
-            case GI_HEART_PIECE: {
-                getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_HEART_PIECE);
+            case GI_HEART_PIECE:
+                getItemId = GetRandomizedItemIdFromKnownCheck(RC_KAK_50_GOLD_SKULLTULA_REWARD, GI_HEART_PIECE);
                 break;
-            }
         }
     } else {
         switch (this->actor.params) {

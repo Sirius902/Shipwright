@@ -190,11 +190,9 @@ void ItemOcarina_WaitInWater(ItemOcarina* this, GlobalContext* globalCtx) {
         this->actor.draw = NULL;
     } else {
         RandomizerCheck check = RC_HF_OCARINA_OF_TIME_ITEM;
-        GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(check, GI_OCARINA_OOT);
-
         func_8002F434(&this->actor, globalCtx,
                       gSaveContext.n64ddFlag
-                          ? getItemId
+                          ? GetRandomizedItemIdFromKnownCheck(check, GI_OCARINA_OOT)
                           : GI_OCARINA_OOT,
                       30.0f, 50.0f, check);
 
