@@ -308,7 +308,7 @@ void func_80ABA654(EnNiwLady* this, GlobalContext* globalCtx) {
 
             this->check = RC_KAK_ANJU_AS_CHILD;
             if (gSaveContext.n64ddFlag) {
-                GetItemId itemId = GetRandomizedItemIdFromKnownCheck(this->check, GI_BOTTLE);
+                GetItemID itemId = GetRandomizedItemIdFromKnownCheck(this->check, GI_BOTTLE);
                 func_8002F434(&this->actor, globalCtx, itemId, 100.0f, 50.0f, this->check);
             } else {
                 this->getItemId = GI_BOTTLE;
