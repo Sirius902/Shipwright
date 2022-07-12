@@ -339,6 +339,7 @@ void EnItem00_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad1;
 
     this->ogParams = this->actor.params;
+    this->check = GetCheckFromActor(globalCtx->sceneNum, this->actor.id, this->ogParams);
 
     this->collectibleFlag = (this->actor.params & 0x3F00) >> 8;
 
@@ -508,7 +509,6 @@ void EnItem00_Init(Actor* thisx, GlobalContext* globalCtx) {
             break;
     }
 
-    this->check = GetCheckFromActor(globalCtx->sceneNum, this->actor.id, this->ogParams);
     if ((gSaveContext.n64ddFlag || getItemId != GI_NONE) && !Actor_HasParent(&this->actor, globalCtx)) {
         getItemId = GetRandomizedItemId(getItemId, this->actor.id, this->ogParams, globalCtx->sceneNum);
         func_8002F554(&this->actor, globalCtx, getItemId, this->check);

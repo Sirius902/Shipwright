@@ -2,6 +2,7 @@
 
 #include <unordered_map>
 #include <optional>
+#include <cmath>
 
 extern "C" {
     #include "functions.h"
@@ -21,7 +22,7 @@ std::string ArchipelagoItemText() {
 }
 
 void SetArchipelagoCurrentCheckImpl(RandomizerCheck check, GetItemID getItemId) {
-    if (getItemId == GI_ARCHIPELAGO_ITEM) {
+    if (std::abs(getItemId) == GI_ARCHIPELAGO_ITEM) {
         currentCheck = check;
     }
 }
