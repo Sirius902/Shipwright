@@ -1540,10 +1540,6 @@ extern "C" void SetArchipelagoCurrentCheck(RandomizerCheck check, GetItemID getI
     SetArchipelagoCurrentCheckImpl(check, getItemId);
 }
 
-extern "C" void ClearArchipelagoCurrentCheck(void) {
-    ClearArchipelagoCurrentCheckImpl();
-}
-
 extern "C" void GiveArchipelagoItem(void) {
     GiveArchipelagoItemImpl();
 }

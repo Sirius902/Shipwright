@@ -101,7 +101,6 @@ s32 GetRandomizedItemId(GetItemID ogId, s16 actorId, s16 actorParams, s16 sceneN
 s32 GetRandomizedItemIdFromKnownCheck(RandomizerCheck randomizerCheck, GetItemID ogId);
 int CopyArchipelagoItemText(char* buffer, const int maxBufferSize);
 void SetArchipelagoCurrentCheck(RandomizerCheck check, GetItemID getItemId);
-void ClearArchipelagoCurrentCheck(void);
 void GiveArchipelagoItem(void);
 #endif
 

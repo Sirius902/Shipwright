@@ -4,14 +4,14 @@
 #include <optional>
 #include <cmath>
 
-extern "C" {
-    #include "functions.h"
-}
+#include "../libultraship/libultraship/luslog.h"
 
-#ifdef osSyncPrintf
-#undef osSyncPrintf
-#endif
-#define osSyncPrintf(fmt, ...) lusprintf(__FILE__, __LINE__, 0, fmt, __VA_ARGS__)
+extern "C" {
+    #include "z64.h"
+    #include "macros.h"
+
+    extern GlobalContext* gGlobalCtx;
+}
 
 extern std::unordered_map<std::string, RandomizerCheck> SpoilerfileCheckNameToEnum;
 
@@ -27,12 +27,13 @@ void SetArchipelagoCurrentCheckImpl(RandomizerCheck check, GetItemID getItemId) 
     }
 }
 
-void ClearArchipelagoCurrentCheckImpl() {
-    currentCheck = {};
-}
-
 void GiveArchipelagoItemImpl() {
-    RandomizerCheck check = currentCheck ? *currentCheck : RC_UNKNOWN_CHECK;
+    if (!currentCheck) {
+        lusprintf(__FILE__, __LINE__, 0, "Archipelago Check Params not set!\n");
+        return;
+    }
+
+    RandomizerCheck check = *currentCheck;
 
     std::string checkName;
     for (const auto& [name, ch] : SpoilerfileCheckNameToEnum) {
@@ -42,5 +43,7 @@ void GiveArchipelagoItemImpl() {
         }
     }
 
-    osSyncPrintf("Archipelago Check Obtained: \"%s\"\n", checkName.c_str());
+    lusprintf(__FILE__, __LINE__, 0, "Archipelago Check Obtained: \"%s\"\n", checkName.c_str());
+
+    currentCheck = {};
 }

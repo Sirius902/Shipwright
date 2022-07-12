@@ -11,5 +11,4 @@ extern "C" {
 std::string ArchipelagoItemText();
 
 void SetArchipelagoCurrentCheckImpl(RandomizerCheck check, GetItemID getItemId);
-void ClearArchipelagoCurrentCheckImpl();
 void GiveArchipelagoItemImpl();

@@ -1965,7 +1965,14 @@ GetItemID Randomizer::GetRandomizedItemId(GetItemID ogId, s16 actorId, s16 actor
 }
 
 GetItemID Randomizer::GetItemFromActor(s16 actorId, s16 actorParams, s16 sceneNum, GetItemID ogItemId) {
-    return GetItemFromGet(this->itemLocations[GetCheckFromActor(sceneNum, actorId, actorParams)], ogItemId);
+    RandomizerCheck check = GetCheckFromActor(sceneNum, actorId, actorParams);
+
+    // ARCHIPELAGO_TODO: Only return Archipelago item if Archipelago mode is enabled.
+    if (check == RC_UNKNOWN_CHECK) {
+        return GetItemFromGet(this->itemLocations[check], ogItemId);
+    } else {
+        return GI_ARCHIPELAGO_ITEM;
+    }
 }
 
 GetItemID Randomizer::GetItemFromGet(RandomizerGet randoGet, GetItemID ogItemId) {
@@ -2421,7 +2428,12 @@ u8 Randomizer::GetRandoSettingValue(RandomizerSettingKey randoSettingKey) {
 }
 
 GetItemID Randomizer::GetRandomizedItemIdFromKnownCheck(RandomizerCheck randomizerCheck, GetItemID ogId) {
-    return GetItemFromGet(this->itemLocations[randomizerCheck], ogId);
+    // ARCHIPELAGO_TODO: Only return Archipelago item if Archipelago mode is enabled.
+    if (randomizerCheck == RC_UNKNOWN_CHECK) {
+        return GetItemFromGet(this->itemLocations[randomizerCheck], ogId);
+    } else {
+        return GI_ARCHIPELAGO_ITEM;
+    }
 }
 
 RandomizerCheck Randomizer::GetCheckFromActor(s16 sceneNum, s16 actorId, s16 actorParams) {
