@@ -1736,6 +1736,7 @@ void Message_OpenText(GlobalContext* globalCtx, u16 textId) {
             } else {
                 msgCtx->msgLength = font->msgLength = CopyGanonHintText(font->msgBuf, sizeof(font->msgBuf));
             }
+        // ARCHIPELAGO_TODO: For now modify the Longshot text id for Archipelago items.
         } else if (GET_PLAYER(globalCtx)->getItemId == GI_ARCHIPELAGO_ITEM && textId == 0x4F) {
             msgCtx->msgLength = font->msgLength = CopyArchipelagoItemText(font->msgBuf, sizeof(font->msgBuf));
         } else {
