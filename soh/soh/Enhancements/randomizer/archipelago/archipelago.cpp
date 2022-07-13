@@ -205,7 +205,7 @@ void GenerateArchipelagoConfig(std::unordered_map<RandomizerSettingKey, u8> cvar
     {
         out << YAML::Key << "name";
         // ARCHIPELAGO_TODO: Reject name if empty and display error to user.
-        // Also figure out why there are carriage returns in the name cvar sometimes.
+        // ARCHIPELAGO_TOOD: Remove carriage return filter once controller ui pr gets in.
         const char* emptyName = "EmptyNameError";
         std::string playerName = CVar_GetString("gArchipelagoName", emptyName);
         if (playerName.empty()) {
