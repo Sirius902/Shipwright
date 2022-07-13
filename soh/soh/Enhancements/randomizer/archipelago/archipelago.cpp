@@ -164,7 +164,7 @@ const std::unordered_set<RandomizerSettingKey> booleanSettings{
     RSK_SKIP_TOWER_ESCAPE,
 };
 
-void EmitSettings(YAML::Emitter& out, std::unordered_map<RandomizerSettingKey, u8> cvarSettings) {
+static void EmitSettings(YAML::Emitter& out, std::unordered_map<RandomizerSettingKey, u8> cvarSettings) {
     for (const auto& [k, v] : cvarSettings) {
         // Skip because RSK_TRIAL_COUNT isn't properly implemented yet.
         if (k == RSK_RANDOM_TRIALS) {
