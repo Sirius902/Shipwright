@@ -13,7 +13,6 @@
 #include <yaml-cpp/yaml.h>
 #include <Cvar.h>
 
-#include "../libultraship/libultraship/luslog.h"
 #include "../libultraship/ImGuiImpl.h"
 #include "soh/Enhancements/debugger/ImGuiHelpers.h"
 #include "Lib/spdlog/include/spdlog/spdlog.h"
@@ -43,7 +42,7 @@ void SetArchipelagoCurrentCheckImpl(RandomizerCheck check, GetItemID getItemId) 
 
 void GiveArchipelagoItemImpl() {
     if (!currentCheck) {
-        lusprintf(__FILE__, __LINE__, 0, "Archipelago Check Params not set!\n");
+        SPDLOG_ERROR("Archipelago Check Params not set!");
         return;
     }
 
@@ -57,7 +56,7 @@ void GiveArchipelagoItemImpl() {
         }
     }
 
-    lusprintf(__FILE__, __LINE__, 0, "Archipelago Check Obtained: \"%s\"\n", checkName.c_str());
+    SPDLOG_INFO("Archipelago Check Obtained ({})", checkName.c_str());
 
     currentCheck = {};
 }
