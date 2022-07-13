@@ -75,25 +75,25 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)assets;$(ProjectDir)build;$(ProjectDir)include;$(ProjectDir)src;$(ProjectDir);$(ProjectDir)..\libultraship\libultraship\Lib\libjpeg\include;$(ProjectDir)..\libultraship\libultraship;$(ProjectDir)..\libultraship\libultraship\Lib\spdlog\include;$(ProjectDir)..\ZAPDTR\ZAPDUtils;$(ProjectDir)..\libultraship\libultraship\Lib\Fast3D\U64;$(ProjectDir)..\libultraship\libultraship\Lib\Fast3D\U64\PR;$(ProjectDir)..\libultraship\libultraship\Lib\SDL;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\asio\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\websocketpp;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\wswrap\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\json\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\valijson\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)assets;$(ProjectDir)build;$(ProjectDir)include;$(ProjectDir)src;$(ProjectDir);$(ProjectDir)..\libultraship\libultraship\Lib\libjpeg\include;$(ProjectDir)..\libultraship\libultraship;$(ProjectDir)..\libultraship\libultraship\Lib\spdlog\include;$(ProjectDir)..\ZAPDTR\ZAPDUtils;$(ProjectDir)..\libultraship\libultraship\Lib\Fast3D\U64;$(ProjectDir)..\libultraship\libultraship\Lib\Fast3D\U64\PR;$(ProjectDir)..\libultraship\libultraship\Lib\SDL;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\asio\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\websocketpp;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\wswrap\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\json\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\valijson\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(OutDir);$(ProjectDir)..\libultraship\libultraship;$(ProjectDir)..\libultraship\libultraship\Lib\SDL\lib\x86;$(ProjectDir)..\libultraship\libultraship\Lib\GLEW\x86;$(ProjectDir)..\libultraship\libultraship\Lib\GLFW;$(ProjectDir)..\StormLib\bin\StormLib\Win32\DebugUS\;$(LibraryPath)</LibraryPath>
     <IntDir>$(Configuration)Obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)assets;$(ProjectDir)build;$(ProjectDir)include;$(ProjectDir)src;$(ProjectDir);$(ProjectDir)..\libultraship\libultraship\Lib\libjpeg\include;$(ProjectDir)..\libultraship\libultraship;$(ProjectDir)..\libultraship\libultraship\Lib\spdlog\include;$(ProjectDir)..\ZAPDTR\ZAPDUtils;$(ProjectDir)..\libultraship\libultraship\Lib\Fast3D\U64;$(ProjectDir)..\libultraship\libultraship\Lib\Fast3D\U64\PR;$(ProjectDir)..\libultraship\libultraship\Lib\SDL;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\asio\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\websocketpp;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\wswrap\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\json\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\valijson\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)assets;$(ProjectDir)build;$(ProjectDir)include;$(ProjectDir)src;$(ProjectDir);$(ProjectDir)..\libultraship\libultraship\Lib\libjpeg\include;$(ProjectDir)..\libultraship\libultraship;$(ProjectDir)..\libultraship\libultraship\Lib\spdlog\include;$(ProjectDir)..\ZAPDTR\ZAPDUtils;$(ProjectDir)..\libultraship\libultraship\Lib\Fast3D\U64;$(ProjectDir)..\libultraship\libultraship\Lib\Fast3D\U64\PR;$(ProjectDir)..\libultraship\libultraship\Lib\SDL;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\asio\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\websocketpp;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\wswrap\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\json\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\valijson\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(OutDir);$(ProjectDir)..\libultraship\libultraship;$(ProjectDir)..\libultraship\libultraship\Lib\SDL\lib\x86;$(ProjectDir)..\libultraship\libultraship\Lib\GLEW\x86;$(ProjectDir)..\libultraship\libultraship\Lib\GLFW;$(ProjectDir)..\StormLib\bin\StormLib\Win32\ReleaseUS\;$(LibraryPath)</LibraryPath>
     <IntDir>$(Configuration)Obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)assets;$(ProjectDir)build;$(ProjectDir)include;$(ProjectDir)src;$(ProjectDir);$(ProjectDir)..\libultraship\libultraship\Lib\libjpeg\include;$(ProjectDir)..\libultraship\libultraship;$(ProjectDir)..\libultraship\libultraship\Lib\spdlog\include;$(ProjectDir)..\ZAPDTR\ZAPDUtils;$(ProjectDir)..\libultraship\libultraship\Lib\Fast3D\U64;$(ProjectDir)..\libultraship\libultraship\Lib\Fast3D\U64\PR;$(ProjectDir)..\libultraship\libultraship\Lib\SDL;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\asio\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\websocketpp;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\wswrap\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\json\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\valijson\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)assets;$(ProjectDir)build;$(ProjectDir)include;$(ProjectDir)src;$(ProjectDir);$(ProjectDir)..\libultraship\libultraship\Lib\libjpeg\include;$(ProjectDir)..\libultraship\libultraship;$(ProjectDir)..\libultraship\libultraship\Lib\spdlog\include;$(ProjectDir)..\ZAPDTR\ZAPDUtils;$(ProjectDir)..\libultraship\libultraship\Lib\Fast3D\U64;$(ProjectDir)..\libultraship\libultraship\Lib\Fast3D\U64\PR;$(ProjectDir)..\libultraship\libultraship\Lib\SDL;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\asio\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\websocketpp;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\wswrap\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\json\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\valijson\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(OutDir);$(ProjectDir)..\libultraship\libultraship;$(ProjectDir)..\libultraship\libultraship\Lib\SDL\lib\x64;$(ProjectDir)..\libultraship\libultraship\Lib\GLEW\x64;$(ProjectDir)..\libultraship\libultraship\Lib\GLFW;$(ProjectDir)..\StormLib\bin\StormLib\x64\DebugUS\;$(LibraryPath)</LibraryPath>
     <IntDir>$(Platform)\$(Configuration)Obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)assets;$(ProjectDir)build;$(ProjectDir)include;$(ProjectDir)src;$(ProjectDir);$(ProjectDir)..\libultraship\libultraship\Lib\libjpeg\include;$(ProjectDir)..\libultraship\libultraship;$(ProjectDir)..\libultraship\libultraship\Lib\spdlog\include;$(ProjectDir)..\ZAPDTR\ZAPDUtils;$(ProjectDir)..\libultraship\libultraship\Lib\Fast3D\U64;$(ProjectDir)..\libultraship\libultraship\Lib\Fast3D\U64\PR;$(ProjectDir)..\libultraship\libultraship\Lib\SDL;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\asio\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\websocketpp;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\wswrap\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\json\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\valijson\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)assets;$(ProjectDir)build;$(ProjectDir)include;$(ProjectDir)src;$(ProjectDir);$(ProjectDir)..\libultraship\libultraship\Lib\libjpeg\include;$(ProjectDir)..\libultraship\libultraship;$(ProjectDir)..\libultraship\libultraship\Lib\spdlog\include;$(ProjectDir)..\ZAPDTR\ZAPDUtils;$(ProjectDir)..\libultraship\libultraship\Lib\Fast3D\U64;$(ProjectDir)..\libultraship\libultraship\Lib\Fast3D\U64\PR;$(ProjectDir)..\libultraship\libultraship\Lib\SDL;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\asio\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\websocketpp;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\wswrap\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\json\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\valijson\include;$(ProjectDir)soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(OutDir);$(ProjectDir)..\libultraship\libultraship;$(ProjectDir)..\libultraship\libultraship\Lib\SDL\lib\x64;$(ProjectDir)..\libultraship\libultraship\Lib\GLEW\x64;$(ProjectDir)..\libultraship\libultraship\Lib\GLFW;$(ProjectDir)..\StormLib\bin\StormLib\x64\ReleaseUS\;$(LibraryPath)</LibraryPath>
     <IntDir>$(Platform)\$(Configuration)Obj\</IntDir>
   </PropertyGroup>
@@ -181,6 +181,37 @@
   <ItemGroup>
     <ClCompile Include="soh\Enhancements\randomizer\archipelago\archipelago.cpp" />
     <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\wswrap\src\wswrap.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\binary.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\contrib\graphbuilder.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\contrib\graphbuilderadapter.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\convert.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\depthguard.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\directives.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\emit.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\emitfromevents.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\emitter.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\emitterstate.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\emitterutils.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\exceptions.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\exp.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\memory.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\node.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\nodebuilder.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\nodeevents.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\node_data.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\null.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\ostream_wrapper.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\parse.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\parser.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\regex_yaml.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\scanner.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\scanscalar.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\scantag.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\scantoken.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\simplekey.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\singledocparser.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\stream.cpp" />
+    <ClCompile Include="soh\Enhancements\randomizer\archipelago\subprojects\yaml-cpp\src\tag.cpp" />
     <ClCompile Include="soh\Enhancements\cosmetics\CosmeticsEditor.cpp" />
     <ClCompile Include="soh\Enhancements\debugger\actorViewer.cpp" />
     <ClCompile Include="soh\Enhancements\gfx.c" />

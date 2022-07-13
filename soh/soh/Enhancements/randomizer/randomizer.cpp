@@ -1,4 +1,5 @@
 #include "randomizer.h"
+#include "Lib/spdlog/include/spdlog/spdlog.h"
 #include "soh/Lib/nlohmann/json.hpp"
 #include <fstream>
 #include <variables.h>
@@ -14,6 +15,7 @@
 #include "3drando/rando_main.hpp"
 #include <soh/Enhancements/debugger/ImGuiHelpers.h>
 #include "Lib/ImGui/imgui_internal.h"
+#include "soh/Enhancements/randomizer/archipelago/archipelago.h"
 
 using json = nlohmann::json;
 
@@ -3207,7 +3209,7 @@ RandomizerCheck Randomizer::GetCheckFromActor(s16 sceneNum, s16 actorId, s16 act
 
 std::thread randoThread;
 
-void GenerateRandomizerImgui() {
+void GenerateRandomizerImgui(bool isArchipelago) {
     CVar_SetS32("gRandoGenerating", 1);
     Game::SaveSettings();
 
@@ -3272,7 +3274,11 @@ void GenerateRandomizerImgui() {
     cvarSettings[RSK_SKIP_EPONA_RACE] = CVar_GetS32("gRandomizeSkipEponaRace", 0);
     cvarSettings[RSK_SKIP_TOWER_ESCAPE] = CVar_GetS32("gRandomizeSkipTowerEscape", 0);
 
-    RandoMain::GenerateRando(cvarSettings);
+    if (isArchipelago) {
+        GenerateArchipelagoConfig(cvarSettings);
+    } else {
+        RandoMain::GenerateRando(cvarSettings);
+    }
 
     CVar_SetS32("gRandoGenerating", 0);
     Game::SaveSettings();
@@ -3520,18 +3526,46 @@ void DrawRandoEditor(bool& open) {
 
         SohImGui::EnhancementCheckbox("Enable Randomizer", "gRandomizer");
 
-        if (CVar_GetS32("gRandomizer", 0) == 1) {
-            if (ImGui::Button("Generate Seed")) {
-                if (CVar_GetS32("gRandoGenerating", 0) == 0) {
-                    randoThread = std::thread(&GenerateRandomizerImgui);
-                }
-            }
-            std::string spoilerfilepath = CVar_GetString("gSpoilerLog", "");
-            ImGui::Text("Spoiler File: %s", spoilerfilepath.c_str());
+        ImGui::Separator();
 
-            // RANDOTODO settings presets
-            // std::string presetfilepath = CVar_GetString("gLoadedPreset", "");
-            // ImGui::Text("Settings File: %s", presetfilepath.c_str());
+        if (CVar_GetS32("gRandomizer", 0) == 1 && ImGui::BeginTabBar("Generator", ImGuiTabBarFlags_NoCloseWithMiddleMouseButton)) {
+            if (ImGui::BeginTabItem("Seed Generator")) {
+                if (ImGui::Button("Generate Seed")) {
+                    if (CVar_GetS32("gRandoGenerating", 0) == 0) {
+                        randoThread = std::thread(&GenerateRandomizerImgui, false);
+                    }
+                }
+                std::string spoilerfilepath = CVar_GetString("gSpoilerLog", "");
+                ImGui::Text("Spoiler File: %s", spoilerfilepath.c_str());
+
+                // RANDOTODO settings presets
+                // std::string presetfilepath = CVar_GetString("gLoadedPreset", "");
+                // ImGui::Text("Settings File: %s", presetfilepath.c_str());
+
+                ImGui::EndTabItem();
+            }
+            if (ImGui::BeginTabItem("Archipelago Generator")) {
+                constexpr size_t nameSize = 16;
+                char playerName[nameSize];
+                strncpy(playerName, CVar_GetString("gArchipelagoName", ""), nameSize);
+
+                ImGui::PushItemWidth(ImGui::GetWindowWidth() * 0.35f);
+                if (ImGui::InputText("Player Name", &playerName[0], nameSize)) {
+                    CVar_SetString("gArchipelagoName", ImStrdup(playerName));
+                    SohImGui::needs_save = true;
+                }
+
+                if (ImGui::Button("Generate Archipelago config")) {
+                    if (CVar_GetS32("gRandoGenerating", 0) == 0) {
+                        randoThread = std::thread(&GenerateRandomizerImgui, true);
+                    }
+                }
+
+                ImGui::PopItemWidth();
+                ImGui::EndTabItem();
+            }
+
+            ImGui::EndTabBar();
         }
         ImGui::Separator();
 

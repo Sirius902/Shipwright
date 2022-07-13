@@ -124,6 +124,7 @@ extern "C" void InitOTR() {
     DebugConsole_Init();
     Debug_Init();
     Rando_Init();
+    InitArchipelago();
     InitItemTracker();
     OTRExtScanner();
 }
