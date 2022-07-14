@@ -40,7 +40,7 @@ std::string Archipelago::getItemText() {
     // "\x1A\x13\x23\x08" "You got " "\x05\x41" "Aly's " "\x05\x42" "Kokiri Sword" "\x05\x40" "!" "\x02"
 
     if (auto check = *currentCheck; currentCheck) {
-        return std::string{"\x1A\x13\x23\x08" "You got " "\x05\x42"} + getCheckName(check) + "\x05\x40" "!" "\x02";
+        return "\x1A\x13\x23\x08" "You got " "\x05\x42" + getCheckName(check) + "\x05\x40" "!" "\x02";
     } else {
         return std::string{"\x1A" "\x05\x41" "Error: Archipelago current check unset!" "\x02"};
     }
