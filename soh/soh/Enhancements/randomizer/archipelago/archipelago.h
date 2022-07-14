@@ -1,5 +1,8 @@
 #pragma once
 
+#include <cstddef>
+#include <memory>
+#include <optional>
 #include <string>
 #include <unordered_map>
 
@@ -10,10 +13,19 @@ extern "C" {
     #include "z64item.h"
 }
 
-std::string ArchipelagoItemText();
+class Archipelago {
+private:
+    std::optional<RandomizerCheck> currentCheck;
 
-void SetArchipelagoCurrentCheckImpl(RandomizerCheck check, GetItemID getItemId);
-void GiveArchipelagoItemImpl();
+public:
+    static constexpr std::size_t nameMaxLength = 16;
 
-void InitArchipelago();
-void GenerateArchipelagoConfig(std::unordered_map<RandomizerSettingKey, u8> cvarSettings);
+    std::string getItemText();
+    void setCurrentCheck(RandomizerCheck check, GetItemID getItemId);
+    void obtainCheck();
+
+    static std::shared_ptr<Archipelago> getInstance();
+    static void generateConfig(const std::unordered_map<RandomizerSettingKey, u8>& cvarSettings);
+};
+
+void Archipelago_Init();

@@ -417,8 +417,8 @@ void GiveLinkDungeonReward(GetItemID getItemId) {
 
 void GiveLinksPocketMedallion() {
     GetItemID getItemId = GetRandomizedItemIdFromKnownCheck(RC_LINKS_POCKET, RG_NONE);
-    SetArchipelagoCurrentCheck(RC_LINKS_POCKET, getItemId);
-    GiveArchipelagoItem();
+    Archipelago_SetCurrentCheck(RC_LINKS_POCKET, getItemId);
+    Archipelago_ObtainCheck();
 
     GiveLinkDungeonReward(getItemId);
 }
@@ -696,8 +696,8 @@ void Sram_InitSave(FileChooseContext* fileChooseCtx) {
 
         if(GetRandoSettingValue(RSK_SKIP_CHILD_ZELDA)) {
             s32 giid = GetRandomizedItemIdFromKnownCheck(RC_SONG_FROM_IMPA, GI_ZELDAS_LULLABY);
-            SetArchipelagoCurrentCheck(RC_SONG_FROM_IMPA, giid);
-            GiveArchipelagoItem();
+            Archipelago_SetCurrentCheck(RC_SONG_FROM_IMPA, giid);
+            Archipelago_ObtainCheck();
 
             if(giid >= GI_ZELDAS_LULLABY && giid <= GI_PRELUDE_OF_LIGHT) {
                 GiveLinkSong(giid);

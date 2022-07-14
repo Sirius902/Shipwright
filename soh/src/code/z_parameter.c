@@ -1549,7 +1549,7 @@ u8 Item_Give(GlobalContext* globalCtx, u8 item) {
     s16 temp;
 
     if (item == ITEM_ARCHIPELAGO_ITEM) {
-        GiveArchipelagoItem();
+        Archipelago_ObtainCheck();
         return ITEM_NONE;
     }
 

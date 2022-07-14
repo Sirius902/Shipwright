@@ -16,6 +16,8 @@
 #include <soh/Enhancements/debugger/ImGuiHelpers.h>
 #include "Lib/ImGui/imgui_internal.h"
 #include "soh/Enhancements/randomizer/archipelago/archipelago.h"
+#include <string>
+#include <exception>
 
 using json = nlohmann::json;
 
@@ -3208,6 +3210,7 @@ RandomizerCheck Randomizer::GetCheckFromActor(s16 sceneNum, s16 actorId, s16 act
 }
 
 std::thread randoThread;
+static std::string archipelagoErrorMessage;
 
 void GenerateRandomizerImgui(bool isArchipelago) {
     CVar_SetS32("gRandoGenerating", 1);
@@ -3275,7 +3278,12 @@ void GenerateRandomizerImgui(bool isArchipelago) {
     cvarSettings[RSK_SKIP_TOWER_ESCAPE] = CVar_GetS32("gRandomizeSkipTowerEscape", 0);
 
     if (isArchipelago) {
-        GenerateArchipelagoConfig(cvarSettings);
+        try {
+            Archipelago::generateConfig(cvarSettings);
+            archipelagoErrorMessage.clear();
+        } catch (std::exception& e) {
+            archipelagoErrorMessage = e.what();
+        }
     } else {
         RandoMain::GenerateRando(cvarSettings);
     }
@@ -3545,12 +3553,11 @@ void DrawRandoEditor(bool& open) {
                 ImGui::EndTabItem();
             }
             if (ImGui::BeginTabItem("Archipelago Generator")) {
-                constexpr size_t nameSize = 16;
-                char playerName[nameSize];
-                strncpy(playerName, CVar_GetString("gArchipelagoName", ""), nameSize);
+                char playerName[Archipelago::nameMaxLength];
+                strncpy(playerName, CVar_GetString("gArchipelagoName", ""), Archipelago::nameMaxLength);
 
                 ImGui::PushItemWidth(ImGui::GetWindowWidth() * 0.35f);
-                if (ImGui::InputText("Player Name", &playerName[0], nameSize)) {
+                if (ImGui::InputText("Player Name", &playerName[0], Archipelago::nameMaxLength)) {
                     CVar_SetString("gArchipelagoName", ImStrdup(playerName));
                     SohImGui::needs_save = true;
                 }
@@ -3559,6 +3566,10 @@ void DrawRandoEditor(bool& open) {
                     if (CVar_GetS32("gRandoGenerating", 0) == 0) {
                         randoThread = std::thread(&GenerateRandomizerImgui, true);
                     }
+                }
+
+                if (!archipelagoErrorMessage.empty()) {
+                    ImGui::Text(("Error: " + archipelagoErrorMessage).c_str());
                 }
 
                 ImGui::PopItemWidth();
@@ -4805,6 +4816,7 @@ extern "C" {
 
 void Rando_Init(void) {
     InitRando();
+    Archipelago_Init();
 }
 
 }

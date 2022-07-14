@@ -123,7 +123,6 @@ extern "C" void InitOTR() {
     DebugConsole_Init();
     Debug_Init();
     Rando_Init();
-    InitArchipelago();
     InitItemTracker();
     OTRExtScanner();
 }
@@ -1504,15 +1503,26 @@ extern "C" s32 GetRandomizedItemIdFromKnownCheck(RandomizerCheck randomizerCheck
     return OTRGlobals::Instance->gRandomizer->GetRandomizedItemIdFromKnownCheck(randomizerCheck, ogId);
 }
 
-extern "C" int CopyArchipelagoItemText(char* buffer, const int maxBufferSize) {
-    const std::string& itemText = ArchipelagoItemText();
+extern "C" int Archipelago_CopyItemText(char* buffer, const int maxBufferSize) {
+    const std::string itemText = []() {
+        if (auto archipelago = Archipelago::getInstance()) {
+            return archipelago->getItemText();
+        } else {
+            return std::string{"\x1A" "\x05\x41" "Error: Archipelago instance is null!" "\x02"};
+        }
+    }();
+
     return CopyStringToCharBuffer(itemText, buffer, maxBufferSize);
 }
 
-extern "C" void SetArchipelagoCurrentCheck(RandomizerCheck check, GetItemID getItemId) {
-    SetArchipelagoCurrentCheckImpl(check, getItemId);
+extern "C" void Archipelago_SetCurrentCheck(RandomizerCheck check, GetItemID getItemId) {
+    if (auto archipelago = Archipelago::getInstance()) {
+        archipelago->setCurrentCheck(check, getItemId);
+    }
 }
 
-extern "C" void GiveArchipelagoItem(void) {
-    GiveArchipelagoItemImpl();
+extern "C" void Archipelago_ObtainCheck(void) {
+    if (auto archipelago = Archipelago::getInstance()) {
+        archipelago->obtainCheck();
+    }
 }

@@ -1981,7 +1981,7 @@ s32 GiveItemWithoutActor(GlobalContext* globalCtx, s32 getItemId, RandomizerChec
                 player->getItemId = getItemId;
                 player->interactRangeActor = &player->actor;
                 player->getItemDirection = player->actor.shape.rot.y;
-                SetArchipelagoCurrentCheck(check, getItemId);
+                Archipelago_SetCurrentCheck(check, getItemId);
                 return true;
             }
         }
@@ -2005,7 +2005,7 @@ s32 func_8002F434(Actor* actor, GlobalContext* globalCtx, s32 getItemId, f32 xzR
                     player->getItemId = getItemId;
                     player->interactRangeActor = actor;
                     player->getItemDirection = absYawDiff;
-                    SetArchipelagoCurrentCheck(check, getItemId);
+                    Archipelago_SetCurrentCheck(check, getItemId);
                     return true;
                 }
             }

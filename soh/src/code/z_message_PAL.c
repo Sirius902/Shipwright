@@ -1738,7 +1738,7 @@ void Message_OpenText(GlobalContext* globalCtx, u16 textId) {
             }
         // ARCHIPELAGO_TODO: For now modify the Longshot text id for Archipelago items.
         } else if (GET_PLAYER(globalCtx)->getItemId == GI_ARCHIPELAGO_ITEM && textId == 0x4F) {
-            msgCtx->msgLength = font->msgLength = CopyArchipelagoItemText(font->msgBuf, sizeof(font->msgBuf));
+            msgCtx->msgLength = font->msgLength = Archipelago_CopyItemText(font->msgBuf, sizeof(font->msgBuf));
         } else {
             msgCtx->msgLength = font->msgLength;
             char* src = (uintptr_t)font->msgOffset;
