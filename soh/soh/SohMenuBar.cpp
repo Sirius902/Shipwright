@@ -881,6 +881,9 @@ void DrawEnhancementsMenu() {
             UIWidgets::PaddedEnhancementCheckbox("Targetable Hookshot Reticle", "gHookshotableReticle", true, false);
             UIWidgets::Tooltip("Use a different color when aiming at hookshotable collision");
 
+            UIWidgets::PaddedEnhancementCheckbox("OoT3D Hookshot Reticle", "gOoT3DHookshotReticle", true, false);
+            UIWidgets::Tooltip("Use an OoT3D style hookshot reticle, will show if the targeted collision or actor is hookshotable");
+
             ImGui::EndMenu();
         }
 
@@ -1592,4 +1595,4 @@ void SohMenuBar::DrawElement() {
         ImGui::EndMenuBar();
     }
 }
-} // namespace SohGui 
+} // namespace SohGui

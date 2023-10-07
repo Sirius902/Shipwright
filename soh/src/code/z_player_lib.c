@@ -1409,7 +1409,7 @@ void Player_DrawHookshotReticle(PlayState* play, Player* this, f32 hookshotRange
         gSPVertex(WORLD_OVERLAY_DISP++, (uintptr_t)gLinkAdultHookshotRedicleVtx, 3, 0);
         gSP1Triangle(WORLD_OVERLAY_DISP++, 0, 1, 2, 0);
 
-        if (SurfaceType_IsHookshotSurface(&play->colCtx, colPoly, bgId)) {
+        if (SurfaceType_IsHookshotSurface(&play->colCtx, colPoly, bgId) && CVarGetInteger("gOoT3DHookshotReticle", false)) {
             WORLD_OVERLAY_DISP = HookableReticle_Draw(play, WORLD_OVERLAY_DISP);
         }
 
