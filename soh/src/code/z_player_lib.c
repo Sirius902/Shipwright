@@ -1350,7 +1350,7 @@ static Gfx hookableReticleDL[] = {
     gsSPEndDisplayList(),
 };
 
-Gfx* HookableReticle_Draw(PlayState* play, s32 isHookable, Gfx* gfx) {
+Gfx* HookableReticle_Draw(PlayState* play, s32 displayReticle, Gfx* gfx) {
     u32 frame = play->gameplayFrames % 20;
     f32 frameAngle;
 
@@ -1359,7 +1359,7 @@ Gfx* HookableReticle_Draw(PlayState* play, s32 isHookable, Gfx* gfx) {
     Matrix_ReplaceRotation(&play->billboardMtxF);
     Matrix_RotateZ(frameAngle, MTXMODE_APPLY);
     gSPMatrix(gfx++, MATRIX_NEWMTX(play->state.gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    if (isHookable) {
+    if (displayReticle) {
         gSPDisplayList(gfx++, hookableReticleDL);
     }
 
@@ -1411,7 +1411,8 @@ void Player_DrawHookshotReticle(PlayState* play, Player* this, f32 hookshotRange
         gSP1Triangle(WORLD_OVERLAY_DISP++, 0, 1, 2, 0);
 
         if (CVarGetInteger("gOoT3DHookshotReticle", false)) {
-            WORLD_OVERLAY_DISP = HookableReticle_Draw(play, SurfaceType_IsHookshotSurface(&play->colCtx, colPoly, bgId), WORLD_OVERLAY_DISP);
+            s32 displayReticle = SurfaceType_IsHookshotSurface(&play->colCtx, colPoly, bgId);
+            WORLD_OVERLAY_DISP = HookableReticle_Draw(play, displayReticle, WORLD_OVERLAY_DISP);
         }
 
         CLOSE_DISPS(play->state.gfxCtx);
