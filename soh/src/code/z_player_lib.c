@@ -1328,6 +1328,44 @@ void func_80090A28(Player* this, Vec3f* vecs) {
     Matrix_MultVec3f(&D_80126098, &vecs[2]);
 }
 
+static u64 hookableTex[] = {
+#include "reticle.i8.inc.h"
+};
+
+#define GUARD 80
+static Vtx hookableReticleVtx[] = {
+    VTX(-GUARD, -GUARD, 0, 0, 0, 255, 0, 0, 255),
+    VTX(GUARD, -GUARD, 0, 2048, 0, 255, 0, 0, 255),
+    VTX(GUARD, GUARD, 0, 2048, 2048, 255, 0, 0, 255),
+    VTX(-GUARD, GUARD, 0, 0, 2048, 255, 0, 0, 255),
+};
+#undef GUARD
+
+static Gfx hookableReticleDL[] = {
+    gsSPTexture(0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_ON),
+    gsDPLoadTextureBlock(hookableTex, G_IM_FMT_I, G_IM_SIZ_8b, 64, 64, 0, G_TX_NOMIRROR | G_TX_CLAMP,
+                         G_TX_NOMIRROR | G_TX_CLAMP, 6, 6, G_TX_NOLOD, G_TX_NOLOD),
+    gsSPVertex(hookableReticleVtx, 4, 0),
+    gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
+    gsSPEndDisplayList(),
+};
+
+Gfx* HookableReticle_Draw(PlayState* play, s32 displayReticle, Gfx* gfx) {
+    u32 frame = play->gameplayFrames % 20;
+    f32 frameAngle;
+
+    frameAngle = DEG_TO_RAD(10) / 5 * (ABS((s32)((frame + 15) % 20) - 10) - 5);
+
+    Matrix_ReplaceRotation(&play->billboardMtxF);
+    Matrix_RotateZ(frameAngle, MTXMODE_APPLY);
+    gSPMatrix(gfx++, MATRIX_NEWMTX(play->state.gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+    if (displayReticle) {
+        gSPDisplayList(gfx++, hookableReticleDL);
+    }
+
+    return gfx;
+}
+
 void Player_DrawHookshotReticle(PlayState* play, Player* this, f32 hookshotRange) {
     static Vec3f D_801260C8 = { -500.0f, -100.0f, 0.0f };
     CollisionPoly* colPoly;
@@ -1371,6 +1409,11 @@ void Player_DrawHookshotReticle(PlayState* play, Player* this, f32 hookshotRange
         }
         gSPVertex(WORLD_OVERLAY_DISP++, (uintptr_t)gLinkAdultHookshotRedicleVtx, 3, 0);
         gSP1Triangle(WORLD_OVERLAY_DISP++, 0, 1, 2, 0);
+
+        if (CVarGetInteger("gOoT3DHookshotReticle", false)) {
+            s32 displayReticle = SurfaceType_IsHookshotSurface(&play->colCtx, colPoly, bgId);
+            WORLD_OVERLAY_DISP = HookableReticle_Draw(play, displayReticle, WORLD_OVERLAY_DISP);
+        }
 
         CLOSE_DISPS(play->state.gfxCtx);
     }
