@@ -881,6 +881,9 @@ void DrawEnhancementsMenu() {
             UIWidgets::PaddedEnhancementCheckbox("Targetable Hookshot Reticle", "gHookshotableReticle", true, false);
             UIWidgets::Tooltip("Use a different color when aiming at hookshotable collision");
 
+            UIWidgets::PaddedEnhancementCheckbox("Climb Fix", "gClimbFix", true, false);
+            UIWidgets::Tooltip("Fixes incorrect collision detection for climbable walls");
+
             ImGui::EndMenu();
         }
 

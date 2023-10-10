@@ -6593,6 +6593,35 @@ s32 func_8083EC18(Player* this, PlayState* play, u32 arg2) {
                     f32 sp34 = this->wallDistance;
                     LinkAnimationHeader* sp30;
 
+                    if (CVarGetInteger("gClimbFix", false)) {
+                        Vec3f posStart;
+                        Vec3f posEnd;
+                        Vec3f posResult;
+                        CollisionPoly* wallPoly;
+                        s32 bgId;
+                        f32 wallTolerance = 1.0f;
+
+                        posStart.x = this->actor.world.pos.x;
+                        // Add magic height passed to func_8083F360
+                        posStart.y = this->actor.world.pos.y + 26.0f;
+                        posStart.z = this->actor.world.pos.z;
+
+                        posEnd.x = COLPOLY_GET_NORMAL(this->actor.wallPoly->normal.x);
+                        posEnd.y = 0.0f;
+                        posEnd.z = COLPOLY_GET_NORMAL(this->actor.wallPoly->normal.z);
+
+                        Math_Vec3f_Scale(&posEnd, this->wallDistance + wallTolerance);
+                        Math_Vec3f_Diff(&posStart, &posEnd, &posEnd);
+
+                        if (BgCheck_EntityLineTest1(&play->colCtx, &posStart, &posEnd, &posResult, &wallPoly, true, false, false, true, &bgId)) {
+                            if (wallPoly != this->actor.wallPoly) {
+                                return 0;
+                            }
+                        } else {
+                            return 0;
+                        }
+                    }
+
                     func_80836898(play, this, func_8083A3B0);
                     this->stateFlags1 |= PLAYER_STATE1_CLIMBING_LADDER;
                     this->stateFlags1 &= ~PLAYER_STATE1_IN_WATER;
