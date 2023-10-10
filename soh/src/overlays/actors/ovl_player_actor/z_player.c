@@ -6599,7 +6599,8 @@ s32 func_8083EC18(Player* this, PlayState* play, u32 arg2) {
                         Vec3f posResult;
                         CollisionPoly* wallPoly;
                         s32 bgId;
-                        f32 wallTolerance = 1.0f;
+                        // Use 1.0f as it is also the check distance for the line test.
+                        const f32 wallTolerance = 1.0f;
 
                         posStart.x = this->actor.world.pos.x;
                         // Add magic height passed to func_8083F360
