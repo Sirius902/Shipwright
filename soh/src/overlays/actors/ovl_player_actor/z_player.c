@@ -6614,11 +6614,9 @@ s32 func_8083EC18(Player* this, PlayState* play, u32 arg2) {
                         Math_Vec3f_Scale(&posEnd, this->wallDistance + wallTolerance);
                         Math_Vec3f_Diff(&posStart, &posEnd, &posEnd);
 
-                        if (BgCheck_EntityLineTest1(&play->colCtx, &posStart, &posEnd, &posResult, &wallPoly, true, false, false, true, &bgId)) {
-                            if (wallPoly != this->actor.wallPoly) {
-                                return 0;
-                            }
-                        } else {
+                        if (!BgCheck_EntityLineTest1(&play->colCtx, &posStart, &posEnd, &posResult, &wallPoly, true,
+                                                     false, false, true, &bgId) ||
+                            wallPoly != this->actor.wallPoly) {
                             return 0;
                         }
                     }
