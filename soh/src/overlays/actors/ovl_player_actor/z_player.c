@@ -6594,30 +6594,50 @@ s32 func_8083EC18(Player* this, PlayState* play, u32 arg2) {
                     LinkAnimationHeader* sp30;
 
                     if (CVarGetInteger("gClimbFix", false)) {
-                        Vec3f posStart;
-                        Vec3f posEnd;
-                        Vec3f posResult;
-                        CollisionPoly* wallPoly;
-                        s32 bgId;
-                        // Use 1.0f as it is also the check distance for the line test.
-                        const f32 wallTolerance = 1.0f;
+                        s32 i;
+                        const f32 wallTolerance = 5.0f;
+                        const f32 raySpread = 4.0f;
 
-                        posStart.x = this->actor.world.pos.x;
-                        // Add magic height passed to func_8083F360
-                        posStart.y = this->actor.world.pos.y + 26.0f;
-                        posStart.z = this->actor.world.pos.z;
+                        for (i = 0; i < 2; i++) {
+                            Vec3f posStart;
+                            Vec3f posEnd;
+                            Vec3f posResult;
+                            CollisionPoly* wallPoly;
+                            s32 bgId;
+                            Vec3f tangentOffset;
+                            u16 tangentYaw;
 
-                        posEnd.x = COLPOLY_GET_NORMAL(this->actor.wallPoly->normal.x);
-                        posEnd.y = 0.0f;
-                        posEnd.z = COLPOLY_GET_NORMAL(this->actor.wallPoly->normal.z);
+                            posStart.x = this->actor.world.pos.x;
+                            // Add magic height passed to func_8083F360
+                            posStart.y = this->actor.world.pos.y + 26.0f;
+                            posStart.z = this->actor.world.pos.z;
 
-                        Math_Vec3f_Scale(&posEnd, this->wallDistance + wallTolerance);
-                        Math_Vec3f_Diff(&posStart, &posEnd, &posEnd);
+                            posEnd.x = COLPOLY_GET_NORMAL(this->actor.wallPoly->normal.x);
+                            posEnd.y = 0.0f;
+                            posEnd.z = COLPOLY_GET_NORMAL(this->actor.wallPoly->normal.z);
 
-                        if (!BgCheck_EntityLineTest1(&play->colCtx, &posStart, &posEnd, &posResult, &wallPoly, true,
-                                                     false, false, true, &bgId) ||
-                            wallPoly != this->actor.wallPoly) {
-                            return 0;
+                            Math_Vec3f_Scale(&posEnd, this->wallDistance + wallTolerance);
+                            Math_Vec3f_Diff(&posStart, &posEnd, &posEnd);
+
+                            tangentYaw = this->actor.wallYaw + 0x4000;
+                            if (i == 1) {
+                                tangentYaw += 0x8000;
+                            }
+
+                            tangentOffset.x = Math_SinS(tangentYaw);
+                            tangentOffset.y = 0.0f;
+                            tangentOffset.z = Math_CosS(tangentYaw);
+
+                            Math_Vec3f_Scale(&tangentOffset, raySpread);
+                            Math_Vec3f_Sum(&posStart, &tangentOffset, &posStart);
+                            Math_Vec3f_Sum(&posEnd, &tangentOffset, &posEnd);
+
+                            // Unsure of where surface flag 4 is used
+                            if (!BgCheck_EntityLineTest1(&play->colCtx, &posStart, &posEnd, &posResult, &wallPoly, true,
+                                                         false, false, true, &bgId) ||
+                                !(func_80041DB8(&play->colCtx, wallPoly, bgId) & (8 | 2 | 4))) {
+                                return 0;
+                            }
                         }
                     }
 
