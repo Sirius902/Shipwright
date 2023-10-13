@@ -6593,7 +6593,7 @@ s32 func_8083EC18(Player* this, PlayState* play, u32 arg2) {
                     f32 sp34 = this->wallDistance;
                     LinkAnimationHeader* sp30;
 
-                    if (CVarGetInteger("gClimbFix", false)) {
+                    if (CVarGetInteger("gClimbFix", false) && (arg2 & 8)) {
                         s32 i;
                         const f32 wallTolerance = 5.0f;
                         const f32 raySpread = 4.0f;
@@ -6632,10 +6632,10 @@ s32 func_8083EC18(Player* this, PlayState* play, u32 arg2) {
                             Math_Vec3f_Sum(&posStart, &tangentOffset, &posStart);
                             Math_Vec3f_Sum(&posEnd, &tangentOffset, &posEnd);
 
-                            // Unsure of where surface flag 4 is used
+                            // Surface flags: 2 = bottom ladder, 4 = top ladder, 8 = climb wall
                             if (!BgCheck_EntityLineTest1(&play->colCtx, &posStart, &posEnd, &posResult, &wallPoly, true,
                                                          false, false, true, &bgId) ||
-                                !(func_80041DB8(&play->colCtx, wallPoly, bgId) & (8 | 2 | 4))) {
+                                !(func_80041DB8(&play->colCtx, wallPoly, bgId) & 8)) {
                                 return 0;
                             }
                         }
