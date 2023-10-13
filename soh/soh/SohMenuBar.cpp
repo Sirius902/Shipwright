@@ -884,6 +884,9 @@ void DrawEnhancementsMenu() {
             UIWidgets::PaddedEnhancementCheckbox("OoT3D Hookshot Reticle", "gOoT3DHookshotReticle", true, false);
             UIWidgets::Tooltip("Use an OoT3D style hookshot reticle, will show if the targeted collision or actor is hookshotable");
 
+            UIWidgets::PaddedEnhancementCheckbox("Climb Fix", "gClimbFix", true, false);
+            UIWidgets::Tooltip("Fixes incorrect collision detection for climbable walls");
+
             ImGui::EndMenu();
         }
 
