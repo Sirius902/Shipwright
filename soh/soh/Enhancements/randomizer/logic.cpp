@@ -57,6 +57,7 @@ bool Logic::HasItem(RandomizerGet itemName) {
         case RG_BOMBCHU_10:
         case RG_BOMBCHU_20:
             return (BombchusEnabled() && (GetInLogic(LOGIC_BUY_BOMBCHUS) || CouldPlayBowling || CarpetMerchant)) ||
+                   // TODO(Sirius902) I'm not sure that this should be here?
                    CheckInventory(ITEM_BOMBCHU, true);
         case RG_FAIRY_SLINGSHOT:
             return CheckInventory(ITEM_SLINGSHOT, true);
@@ -1118,7 +1119,7 @@ bool Logic::CanAttack() {
 }
 
 bool Logic::BombchusEnabled() {
-    return ctx->GetOption(RSK_BOMBCHU_BAG) ? CheckInventory(ITEM_BOMBCHU, true) : HasItem(RG_BOMB_BAG);
+    return ctx->GetOption(RSK_BOMBCHU_BAG) ? CheckRandoInf(RAND_INF_OBTAINED_BOMBCHU_BAG) : HasItem(RG_BOMB_BAG);
 }
 
 // TODO: Implement Ammo Drop Setting in place of bombchu drops
@@ -1745,6 +1746,7 @@ void Logic::ApplyItemEffect(Item& item, bool state) {
                         break;
                     }
                     SetInventory(ITEM_BOMBCHU, (!state ? ITEM_NONE : ITEM_BOMBCHU));
+                    SetRandoInf(RAND_INF_OBTAINED_BOMBCHU_BAG, true);
                 } break;
                 case RG_PROGRESSIVE_MAGIC_METER: {
                     auto realGI = item.GetGIEntry();

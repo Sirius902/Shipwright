@@ -421,9 +421,9 @@ static void PlaceItemsForType(RandomizerCheckType rctype, bool overworldActive, 
 }
 
 static void SetScarceItemPool() {
-    ReplaceMaxItem(RG_PROGRESSIVE_BOMBCHUS, 3);
+    ReplaceMaxItem(RG_PROGRESSIVE_BOMBCHUS, 2);
     ReplaceMaxItem(RG_BOMBCHU_5, 1);
-    ReplaceMaxItem(RG_BOMBCHU_10, 2);
+    ReplaceMaxItem(RG_BOMBCHU_10, 3);
     ReplaceMaxItem(RG_BOMBCHU_20, 0);
     ReplaceMaxItem(RG_PROGRESSIVE_MAGIC_METER, 1);
     ReplaceMaxItem(RG_DOUBLE_DEFENSE, 0);
@@ -660,6 +660,10 @@ void GenerateItemPool() {
         AddItemToMainPool(RG_PROGRESSIVE_STICK_UPGRADE);
         AddItemToMainPool(RG_PROGRESSIVE_MAGIC_METER);
         AddItemToMainPool(RG_PROGRESSIVE_WALLET);
+
+        if (ctx->GetOption(RSK_BOMBCHU_BAG)) {
+            AddItemToMainPool(RG_PROGRESSIVE_BOMBCHUS);
+        }
     }
 
     if (ctx->GetOption(RSK_SHUFFLE_MERCHANTS).Is(RO_SHUFFLE_MERCHANTS_BEANS_ONLY) ||
@@ -678,11 +682,7 @@ void GenerateItemPool() {
         if (/*!ProgressiveGoronSword TODO: Implement Progressive Goron Sword*/ true) {
             AddItemToMainPool(RG_GIANTS_KNIFE);
         }
-        if (ctx->GetOption(RSK_BOMBCHU_BAG)) {
-            AddItemToMainPool(RG_PROGRESSIVE_BOMBCHUS);
-        } else {
-            AddItemToMainPool(RG_BOMBCHU_10);
-        }
+        AddItemToMainPool(RG_BOMBCHU_10);
     } else {
         ctx->PlaceItemInLocation(RC_KAK_GRANNYS_SHOP, RG_BLUE_POTION_REFILL, false, true);
         ctx->PlaceItemInLocation(RC_GC_MEDIGORON, RG_GIANTS_KNIFE, false, true);
@@ -793,7 +793,10 @@ void GenerateItemPool() {
     }
 
     if (ctx->GetOption(RSK_BOMBCHU_BAG)) {
-        AddItemToMainPool(RG_PROGRESSIVE_BOMBCHUS, 5);
+        AddItemToMainPool(RG_PROGRESSIVE_BOMBCHUS, 2);
+        AddItemToMainPool(RG_BOMBCHU_5);
+        AddItemToMainPool(RG_BOMBCHU_10);
+        AddItemToMainPool(RG_BOMBCHU_20);
     } else {
         AddItemToMainPool(RG_BOMBCHU_5);
         AddItemToMainPool(RG_BOMBCHU_10, 3);
