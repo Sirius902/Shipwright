@@ -895,9 +895,13 @@ ItemObtainability Randomizer::GetItemObtainabilityFromRandomizerGet(RandomizerGe
         case RG_BOMBCHU_20:
         case RG_BUY_BOMBCHUS_10:
         case RG_BUY_BOMBCHUS_20:
-        case RG_PROGRESSIVE_BOMBCHUS: // RANDOTODO Do we want bombchu refills to exist seperatly from bombchu bags? If
-                                      // so, this needs changing.
             return CAN_OBTAIN;
+        case RG_PROGRESSIVE_BOMBCHUS:
+            return infiniteUpgrades != RO_INF_UPGRADES_OFF
+                       ? (Flags_GetRandomizerInf(RAND_INF_HAS_INFINITE_BOMBCHUS) ? CANT_OBTAIN_ALREADY_HAVE
+                                                                                 : CAN_OBTAIN)
+                       : (Flags_GetRandomizerInf(RAND_INF_OBTAINED_BOMBCHU_BAG) ? CANT_OBTAIN_ALREADY_HAVE
+                                                                                : CAN_OBTAIN);
         case RG_PROGRESSIVE_HOOKSHOT:
             switch (INV_CONTENT(ITEM_HOOKSHOT)) {
                 case ITEM_NONE:
@@ -6109,14 +6113,13 @@ extern "C" u16 Randomizer_Item_Give(PlayState* play, GetItemEntry giEntry) {
             if (INV_CONTENT(ITEM_BOMBCHU) == ITEM_NONE) {
                 INV_CONTENT(ITEM_BOMBCHU) = ITEM_BOMBCHU;
                 AMMO(ITEM_BOMBCHU) = 20;
-            } else if (OTRGlobals::Instance->gRandomizer->GetRandoSettingValue(RSK_INFINITE_UPGRADES)) {
-                Flags_SetRandomizerInf(RAND_INF_HAS_INFINITE_BOMBCHUS);
             } else {
                 AMMO(ITEM_BOMBCHU) += 10;
                 if (AMMO(ITEM_BOMBCHU) > 50) {
                     AMMO(ITEM_BOMBCHU) = 50;
                 }
             }
+            Flags_SetRandomizerInf(RAND_INF_OBTAINED_BOMBCHU_BAG);
             break;
         case RG_MASTER_SWORD:
             if (!CHECK_OWNED_EQUIP(EQUIP_TYPE_SWORD, EQUIP_INV_SWORD_MASTER)) {

@@ -763,11 +763,11 @@ s32 EnGirlA_CanBuy_Unk20(PlayState* play, EnGirlA* this) {
 
 s32 EnGirlA_CanBuy_Bombchus(PlayState* play, EnGirlA* this) {
     // When in rando, don't allow buying bombchus when the player doesn't have required explosives
-    // If bombchus are in logic, the player needs to have bombchus; otherwise they need a bomb bag
+    // If bombchus are in logic, the player needs to have bombchu bag; otherwise they need a bomb bag
     if (IS_RANDO) {
         u8 bombchuBag = Randomizer_GetSettingValue(RSK_BOMBCHU_BAG);
         if ((!bombchuBag && CUR_CAPACITY(UPG_BOMB_BAG) == 0) ||
-            (bombchuBag && INV_CONTENT(ITEM_BOMBCHU) == ITEM_NONE)) {
+            (bombchuBag && !Flags_GetRandomizerInf(RAND_INF_OBTAINED_BOMBCHU_BAG))) {
             return CANBUY_RESULT_CANT_GET_NOW;
         }
     }

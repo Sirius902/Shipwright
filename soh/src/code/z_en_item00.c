@@ -1502,7 +1502,7 @@ void EnItem00_DrawHeartPiece(EnItem00* this, PlayState* play) {
  * Returns the new drop type ID.
  */
 s16 EnItem00_ConvertBombDropToBombchu(s16 dropId) {
-    if (INV_CONTENT(ITEM_BOMBCHU) == ITEM_NONE) {
+    if (!Flags_GetRandomizerInf(RAND_INF_OBTAINED_BOMBCHU_BAG)) {
         return dropId;
     }
 
